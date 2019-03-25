@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hamburger-menu d-lg-none">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Lista De Usuarios</h1>
+      <div class="breadcrumbs">
+        <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+          <li><a href="/user/register">Registrar</a></li>
+          <li><a href="/user/show">Listar</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<img class="header-img" src="/images/contact-bg.png" alt="">
+</header>
+<div class="container" id="iver">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="">
+        <div class="card card-register mx-auto mt-5">
+          <center>
+            <table class="table" id="buscador" style="border-bottom: 5px solid #4fa9e3;" >
+              <thead class="card-header">
+                <tr>
+                  <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Nombre</th>
+                  <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Apellido(s)</th>
+                  <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Usuario</th>
+                  <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Correo Electronico</th>
+                  <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Fecha de Creacion</th>
+                  <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Rol</th>
+                  <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col" class="noPrint">Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="card-body container" >
+                {% if users %}
+                {% for user in users %}
+                <tr>
+                  <td>{{ user.first_name }}</td>
+                  <td>{{ user.last_name }}</td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.created }}</td>
+                  <td>{{ user.tipoUsuario }}</td>
+                  <td class="noPrint">
+                    <a class="btn btn-warning fa fa-edit" href="/user/edit/{{ user.id }}"></a>
+                    <a class="btn btn-danger fa fa-trash" href="/user/delete/{{ user.id }}"></a>
+                  </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                  <td colspan="9" class="text-center">No se encontraron resultados</td>
+                </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/app/common/buscador.js"></script>
+{% endblock %}

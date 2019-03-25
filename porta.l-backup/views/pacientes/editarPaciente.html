@@ -1,0 +1,139 @@
+ {% extends "base.html" %}
+{% block content %}
+  <div class="hamburger-menu d-lg-none">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Pacientes</h1>
+        <div class="breadcrumbs">
+          <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+            <li><a href="/historia_clinica/crear">Registrar</a></li>
+            <li><a href="/paciente/mostrarPacientes">listar</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img class="header-img" src="/images/contact-bg.png" alt="">
+  </header>
+  <link rel="stylesheet" href="/stylesheets/app/estilos.css">
+  <div class="container">
+    {% if paciente != None %}
+      <div class="col-md-12"">
+        <div class="container">
+          <div class="card card-register mx-auto mt-5">
+            <div class="card-header letra color-background" style="background-color: rgb(85, 142, 212);">Editar Paciente</div>
+            <div class="card-body">
+              <form class="form-horizontal ajax-form" role="form" url="/paciente/editar/{{ paciente.id }}" method="post" id="editPacienteForm">
+                <div class="row">
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputName" class="control-label">Apellido Paterno: </label>
+                  </div>
+                  <div class="col-12 col-md-10">
+                    <input type="text" class="form-control" name="paterno" id="paterno" value="{{ paciente.paterno }}">
+                  </div>
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputName" class="control-label">Apellido Materno: </label>
+                  </div>
+                  <div class="col-12 col-md-10">
+                    <input type="text" class="form-control" name="materno" id="materno" value="{{ paciente.materno }}">
+                  </div>
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputUsername" class="control-label">Nombre(s): </label>
+                  </div>
+                  <div class="col-12 col-md-10">
+                    <input type="text" class="form-control" name="nombre" id="nombre" value="{{ paciente.nombre }}" >
+                  </div>
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputName" class="control-label">Fecha de Nac.: </label>
+                  </div>
+                  <div class="col-12 col-md-10">
+                    <input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" value="{{ paciente.fechaNacimiento }}">
+                  </div>
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputUsername" class="control-label">Direccion: </label>
+                  </div>
+                  <div class="col-12 col-md-10">
+                    <input type="text" class="form-control" name="direccion" id="direccion" value="{{ paciente.direccion }}" >
+                  </div>
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputUsername" class=" control-label">Tipo Documento: </label>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <select class="form-control" id="tipoDocumento" name="tipoDocumento">
+                      <option value="Carnet de Identidad">Carnet de Identidad</option>
+                      <option value="Pasaporte">Pasaporte</option>
+                      <option value="NIT">NIT</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputUsername" class="control-label">Nro Documento:</label>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <input type="text" class="form-control" name="nroDocumento" id="nroDocumento" value="{{ paciente.nroDocumento }}" >
+                  </div>
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputName" class="control-label">Estado Civil *</label>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <select class="form-control" id="estadoCivil" name="estadoCivil">
+                      <option>Soltero(a)</option>
+                      <option>Casado(a)</option>
+                      <option>Divorsiado(a)</option>
+                      <option>Viudo(a)</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputName" class="control-label">Ocupacion *</label>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <input type="text" class="form-control" name="ocupacion" id="ocupacion" value="{{ paciente.ocupacion }}">
+                  </div>
+                  <div class="col-12 col-md-3" style="margin-bottom: 10px;">
+                    <label for="inputName" class="control-label">Fecha y Hora de cita: </label>
+                  </div>
+                  <div class="col-12 col-md-8">
+                    <input type="datetime-local" class="form-control" name="fechaCita" id="fechaCita" value="{{ paciente.fechaCita }}">
+                  </div>
+                  <div class="col-12 col-md-3" style="margin-bottom: 10px;">
+                    <label for="inputName" class="control-label">Fecha y Hora de Reconsulta: </label>
+                  </div>
+                  <div class="col-12 col-md-8">
+                    <input type="datetime-local" class="form-control" name="fechaReconsulta" id="fechaReconsulta" value="{{ paciente.fechaReconsulta }}">
+                  </div>
+                </div>
+                <div class="form-group text-center">
+                  <button type="submit" value="submit" class="btn btn-warning">Actualizar Paciente</button>
+                </div>
+              </form>
+              <br>
+            </div>
+          </div>
+        </div>
+        <script src="/js/app/paciente/editPaciente.js"></script>
+      </div>
+    {% else %}
+      <div class="col-md-12">    
+        <div class="container" style="margin-top: 50px;">
+          <div class="card card-register mx-auto mt-5">
+            <div class="card-header letra color-background">
+              Lo sentimos
+            </div>
+            <div class="card-body">
+              No se encontro el producto que esta buscando
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

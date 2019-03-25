@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hamburger-menu d-lg-none">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<link rel="stylesheet" href="/stylesheets/app/estilos.css">
+
+<style type="text/css">
+    td {
+        vertical-align: center;
+        horizontal-align: left;
+        padding-left: 30px;
+        height: 70px;
+    }
+
+    input[type=checkbox] {
+        -moz-appearance:none;
+        -webkit-appearance:none;
+        -o-appearance:none;
+        width: 20px;
+        height: 20px;
+        border-width: 2px;
+        border-color: #009;
+        border-style: solid;
+    }
+
+    input[type=checkbox]:checked {
+        background: #009;
+        box-shadow: inset 0px 0px 0px 2px #fff;
+    }
+
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Historial del Paciente</h1>
+            <div class="breadcrumbs">
+                <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+                    <li><a href="/historia_clinica/listar">Volver al Listado de Historias Clínicas</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<img class="header-img" src="/images/about-bg.png" alt="">
+</header>
+<div class="container">
+    <div class="col-md-12">
+        <div class="card card-register mx-auto mt-5" style=" border-bottom-color: #558ed4;
+    border-bottom-width: thick;">
+            <div class="card-body">
+                <div class="card-header letra color-background" style="background-color: rgb(85, 142, 212); text-align: center;
+    ">Datos Personales del Paciente</div>
+                <div class="row">
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="paterno" class="control-label">Apellido Paterno: </label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <label class="control-label">{{ historia_clinica.paciente_apellido_paterno }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputName" class="control-label">Apellido Materno: </label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <label class="control-label">{{ historia_clinica.paciente_apellido_materno }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputUsername" class="control-label">Nombre(s): </label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <label class="control-label">{{ historia_clinica.paciente_nombre }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputName" class="control-label">Fecha de Nac.: </label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <label class="control-label">{{ historia_clinica.paciente_fecha_nacimiento }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputUsername" class="control-label">Direccion: </label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <label class="control-label">{{ historia_clinica.paciente_direccion }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputUsername" class=" control-label">Tipo Documento: </label>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="control-label">{{ historia_clinica.paciente_tipo_documento }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputUsername" class="control-label">Nro Documento:</label>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="control-label">{{ historia_clinica.paciente_ci }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputName" class="control-label">Estado Civil *</label>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="control-label">{{ historia_clinica.paciente_estado_civil }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputName" class="control-label">Ocupacion *</label>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="control-label">{{ historia_clinica.paciente_ocupacion }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header letra color-background" style="background-color: rgb(85, 142, 212); text-align: center;
+    ">Datos preliminares para valoración del Glaucoma</div>
+                <input id="historiaClinicaId" type="hidden" value="{{ historia_clinica.id }}" />
+                <input id="pacienteId" type="hidden" value="{{ historia_clinica.paciente_id }}" />
+                <table width="100%">
+                    <tr>
+                        <td align="left">
+                            <input type="checkbox" name="afroamericano" id="afroamericano" readonly="readonly" {% if historia_clinica.afroamericano == "True" %}checked="checked"{% endif %} />
+                            <label for="afroamericano" class="control-label">Es de origen afroamericano</label>
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" name="diabetes" id="diabetes" readonly="readonly" {% if historia_clinica.diabetes == "True" %}checked="checked"{% endif %} />
+                            <label for="inputName" class="control-label">Tiene Diabetes</label>
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" name="antecedentesMiopia" id="antecedentesMiopia" readonly="readonly" {% if historia_clinica.antecedentes_miopia == "True" %}checked="checked"{% endif %} />
+                            <label for="inputName" class="control-label">Antecedentes familiares de miopía</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="inputUsername" class="control-label">Observaciones: </label>
+                        </td>
+                        <td>
+                            <label class="control-label">{{ historia_clinica.observaciones }}</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group text-center">
+                <div class="card-header letra color-background" style="background-color: rgb(85, 142, 212); text-align: center;
+    ">Historial de consultas</div>
+                <table width="100%" border="1">
+                    <thead class="card-header">
+                    <tr>
+                        <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Fecha</th>
+                        <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Síntomas</th>
+                        <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Probabilidad de Glaucoma</th>
+                        <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Observaciones</th>
+                        <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Diagnóstico</th>
+                        <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Receta</th>
+                    </tr>
+                    </thead>
+                    <tbody class="card-body container" >
+                    {% if historia_clinica.consultas %}
+                    {% for consulta in historia_clinica.consultas %}
+                    <tr>
+                        <td align="left">{{ consulta.fecha }}</td>
+                        <td align="left">{{ consulta.sintomas }}</td>
+                        <td align="left">{{ consulta.probabilidad_glaucoma }}</td>
+                        <td align="left">{{ consulta.observaciones }}</td>
+                        <td align="left">{{ consulta.diagnostico }}</td>
+                        <td align="left">{{ consulta.receta }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="9" class="text-center">El paciente no tiene consultas</td>
+                    </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

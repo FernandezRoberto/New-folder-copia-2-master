@@ -1,0 +1,8 @@
+iniciar en windows
+python "C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin\dev_appserver.py" --port 8888 .
+
+iniciar en linux
+python "/usr/lib/google-cloud-sdk/bin/dev_appserver.py" --port 8888 .
+
+iniciar motor de inferencia
+python inferencia_flask/inference_api.py

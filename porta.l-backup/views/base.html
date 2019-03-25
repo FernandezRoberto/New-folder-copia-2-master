@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Redes Bayesianas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/swiper.min.css">
+    <link rel="stylesheet" href="/css/design.css">
+    <link rel="stylesheet" href="/css/app/app.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/bootstrap.min.css">
+    <!--script src="/js/custom.js"></script-->
+    <link rel="stylesheet" href="/css/common/vendor.bundle.base.css">
+    <link rel="stylesheet" href="/css/app/common/botones.css">
+    <link rel="stylesheet" href="/css/common/vendor.bundle.addons.css">
+    <script src="/js/common/vendor.bundle.base.js"></script>
+    <script src="/js/common/vendor.bundle.addons.js"></script>
+    <script src="/js/jquery/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="/js/PrintThis/printThis.js"></script>
+    <script src="/js/PrintThis/common.js"></script>
+  </head>
+  <body class="single-page">
+    <header class="site-header">
+      <div class="nav-bar">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+              <div class="site-branding d-flex align-items-center">
+              </div>
+              <nav class="site-navigation d-flex justify-content-end align-items-center">
+              <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-items-center">
+                <li class="nav-item"><a href="/">Principal</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user/register">Registrar</a></li>
+                {% if tipo == "Administrador" or tipo == "Medico" %}
+                <li class="nav-item"><a href="/historia_clinica/listar">Historias Clínicas</a></li>
+                <li class="nav-item"><a href="/inferencia/listar">Predicciones incorrectas</a></li>
+                {% endif %}
+                {% if tipo != "Administrador" %}
+                  <li><a href="/contact">Contacto</a></li>
+                {% endif %}
+                {% if tipo == "Administradora" or tipo == "Ingeniero" %}
+                  <li class="nav-item"><a href="/conocimientos/crearConocimiento">Adquisicion Conocimiento</a></li>
+                {% endif %}
+                {% if tipo == "Administrador" or tipo == "Secretaria" %}
+                  <li><a href="/paciente/mostrarPacientes">Administrar Pacientes</a></li>
+                {% endif %}
+                {% if username %}
+                  {% if tipo == "Administrador" %}
+                    <li class="nav-item"><a class="nav-link" href="/user/show">Administrar Usuarios</a></li>
+                  {% endif %}
+                  <li class="nav-item"><a class="nav-link" href="/user/logout">Salir( {{ username }} )</a></li>
+                {% else %}
+                  <li class="nav-item"><a class="nav-link" href="/user/login">Ingresar</a></li>
+                {% endif %}
+                  <li class="call-btn button gradient-bg mt-3 mt-md-0">
+                   <a class="d-flex justify-content-center align-items-center" href="#"><img src="/images/emergency-call.png"> +591 (7) 071 5092</a>
+                  </li>
+              </ul>
+            </nav>
+              {% block content %}
+              {% endblock content %}
+              <footer class="site-footer">
+                <div class="footer-widgets">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-12 col-md-6 col-lg-4">
+                        <div class="foot-about">
+                          <h2><a href="#"><img  alt=""></a></h2>
+                          <p class="copyright">Copyright &copy;<script>document.write(new Date().getFullYear());</script></p>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                        <div class="foot-contact">
+                          <h2>Contacto</h2>
+                          <ul class="p-0 m-0">
+                            <li><span>Ubicacion:</span> &nbsp Av. San Martin N°173 entre Bolivar y Heroinas edificio PALMER 1er piso Oficina N°2</li>
+                            <li><span>Telefono:</span> 4038290 - 70715092 </li>
+                            <li><span>Correo:</span> tuCorreo@gmail.com</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                        <div class="foot-links">
+                          <h2>Links de Ayuda</h2>
+                          <ul class="p-0 m-0">
+                            <li><a href="/">Principal</a></li>
+                            <li><a href="/about">Sobre Nosotros</a></li>
+                            <li><a href="/contact">Contacto</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <!--script type='text/javascript' src='/js/jquery/jquery.collapsible.min.js'></script-->
+    <script type='text/javascript' src='/js/swiper.min.js'></script>
+    <!--script type='text/javascript' src='/js/jquery/jquery.countdown.min.js'></script-->
+    <script type='text/javascript' src='/js/circle-progress.min.js'></script>
+    <!--script type='text/javascript' src='/js/jquery/jquery.countTo.min.js'></script>
+    <script type='text/javascript' src='/js/jquery/jquery.barfiller.js'></script-->
+
+    <script src="/js/bootstrap/bootbox.min.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <!--script src="/js/app/ajax.js"></script!-->
+
+    <style>
+      .modal-dialog {
+        max-width: 800px !important;
+        margin: 30px auto;
+      }
+      .bootbox .modal-header{
+        display: block;
+      }
+      .bootbox-body {
+        margin-top: 10px !important;
+      }
+    </style>
+    <script src="/js/common/off-canvas.js"></script>
+    <script src="/js/common/misc.js"></script>
+    <script src="/js/common/misc.js"></script>
+    <script src="/js/common/underscore-min.js"></script>
+    <script src="/js/common/moment.min.js"></script>
+    <script src="/js/common/jquery.serializejson.js"></script>
+    <script src="/js/app/common/ajax.js"></script>
+    <script src="/js/app/common/loader.js"></script>
+    <script src="/js/common/bootbox.min.js"></script>
+    <script src="/js/app/common/general-validator.js"></script>
+    
+  </body>
+</html>

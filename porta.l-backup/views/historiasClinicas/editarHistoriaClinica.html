@@ -1,0 +1,381 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hamburger-menu d-lg-none">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<link rel="stylesheet" href="/stylesheets/app/estilos.css">
+
+<style type="text/css">
+    td {
+        vertical-align: center;
+        horizontal-align: left;
+        padding-left: 30px;
+        height: 70px;
+    }
+
+    input[type=checkbox] {
+        -moz-appearance:none;
+        -webkit-appearance:none;
+        -o-appearance:none;
+        width: 20px;
+        height: 20px;
+        border-width: 2px;
+        border-color: #009;
+        border-style: solid;
+    }
+
+    input[type=checkbox]:checked {
+        background: #009;
+        box-shadow: inset 0px 0px 0px 2px #fff;
+    }
+
+    button {
+        all: none;
+    }
+</style>
+
+<link rel="stylesheet" href="/js/jquery-ui/jquery-ui.css" />
+<script type="text/javascript" src="/js/jquery-ui/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+    var getUrl = window.location;
+    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+    function registrarConsulta() {
+        $.ajax({
+            url: '/historia_clinica/editar/' + $('#historiaClinicaId').val(),
+            type: 'put',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                paciente_id: $('#pacienteId').val(),
+                afroamericano: $('#afroamericano').is(':checked'),
+                diabetes: $('#diabetes').is(':checked'),
+                antecedentes_miopia: $('#antecedentesMiopia').is(':checked'),
+                observaciones_historia: $('#observaciones').val(),
+                dolor_ocular_severo: $('#dolorOcularSevero').is(':checked'),
+                enrojecimiento_ojo: $('#enrojecimientoOjo').is(':checked'),
+                nauseas_vomitos: $('#nauseasVomitos').is(':checked'),
+                vision_borrosa: $('#visionBorrosa').is(':checked'),
+                halos: $('#halos').is(':checked'),
+                perdida_vision_periferica: $('#perdidaVisionPeriferica').is(':checked'),
+                vision_tunel: $('#visionTunel').is(':checked'),
+                grado_miopia: $('#gradoMiopia').val(),
+                antecedentes_miopia: $('#antecedentesMiopia').is(':checked'),
+                presion_intraocular: $('#presionIntraocular').val(),
+                usa_esteroides: $('#usaEsteroides').is(':checked'),
+                observaciones: $('#observacionesConsulta').val(),
+                diagnostico: $('#diagnostico').val(),
+                receta: $('#receta').val(),
+                probabilidad_glaucoma: $('#hidProbabilidad').val(),
+                tiene_glaucoma: $('#hidPrediccion').val(),
+                prediccion_correcta: $('#prediccionCorrecta').val()
+            }),
+            success: function(result) {
+                //alert('Consulta registrada exitosamente');
+                //window.location.href = baseUrl + '/listar';
+                bootbox.alert("Consulta registrada exitosamente", function(){ window.location.href = baseUrl + '/listar'; });
+            },
+            error: function() {
+                bootbox.alert('Hubo un error al registrar la historia clínica');
+            }
+        });
+    }
+
+    function mostrarDialogoPrediccion() {
+        $.ajax({
+            url: '/inferencia/predecir',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: $('#historiaClinicaId').val(),
+                paciente_id: $('#pacienteId').val(),
+                diabetes: $('#diabetes').is(':checked'),
+                afroamericano: $('#afroamericano').is(':checked'),
+                antecedentes_miopia: $('#antecedentesMiopia').is(':checked'),
+                dolor_ocular_severo: $('#dolorOcularSevero').is(':checked'),
+                enrojecimiento_ojo: $('#enrojecimientoOjo').is(':checked'),
+                nauseas_vomitos: $('#nauseasVomitos').is(':checked'),
+                vision_borrosa: $('#visionBorrosa').is(':checked'),
+                halos: $('#halos').is(':checked'),
+                perdida_vision_periferica: $('#perdidaVisionPeriferica').is(':checked'),
+                vision_tunel: $('#visionTunel').is(':checked'),
+                grado_miopia: $('#gradoMiopia').val(),
+                antecedentes_miopia: $('#antecedentesMiopia').is(':checked'),
+                presion_intraocular: $('#presionIntraocular').val().trim() == '' ? '0.0' : $('#presionIntraocular').val().trim(),
+                usa_esteroides: $('#usaEsteroides').is(':checked'),
+                diabetes: $('#diabetes').is(':checked')
+            }),
+            success: function(result) {
+                if (result.prediction == 1) {
+                    $('#lblPrediccionTexto').html('Los pronósticos indican que el paciente puede tener glaucoma.');
+                } else {
+                    $('#lblPrediccionTexto').html('Los pronósticos indican que el paciente no tiene glaucoma.');
+                }
+
+                $('#lblPrediccionProbabilidad').html((result.probability * 100) + '%');
+                $('#hidPrediccion').val(result.prediction);
+                $('#hidProbabilidad').val(result.probability);
+                $('#dlgPrediccion').dialog('open');
+            },
+            error: function(result) {
+                bootbox.alert('Ha ocurrido un error al realizar la verificación');
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#dlgPrediccion').dialog({title: 'Predicción y Registro', width: 600, height: 400, modal: true, autoOpen: false});
+        $('.ui-button').button();
+    });
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Diagnostico</h1>
+            <div class="breadcrumbs">
+                <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+                    <li><a href="/historia_clinica/listar">Volver al Listado de Historias Clínicas</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<img class="header-img" src="/images/about-bg.png" alt="">
+</header>
+<div class="container">
+    <div class="col-md-12">
+        <div class="card card-register mx-auto mt-5" style=" border-bottom-color: #558ed4;
+    border-bottom-width: thick;">
+            <div class="card-body">
+                <div class="card-header letra color-background" style="background-color: rgb(85, 142, 212); text-align: center;
+    ">Datos Personales del Paciente</div>
+                <div class="row">
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="paterno" class="control-label">Apellido Paterno: </label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <label class="control-label">{{ historia_clinica.paciente_apellido_paterno }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputName" class="control-label">Apellido Materno: </label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <label class="control-label">{{ historia_clinica.paciente_apellido_materno }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputUsername" class="control-label">Nombre(s): </label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <label class="control-label">{{ historia_clinica.paciente_nombre }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputName" class="control-label">Fecha de Nac.: </label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <label class="control-label">{{ historia_clinica.paciente_fecha_nacimiento }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputUsername" class="control-label">Direccion: </label>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <label class="control-label">{{ historia_clinica.paciente_direccion }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputUsername" class=" control-label">Tipo Documento: </label>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="control-label">{{ historia_clinica.paciente_tipo_documento }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputUsername" class="control-label">Nro Documento:</label>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="control-label">{{ historia_clinica.paciente_ci }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputName" class="control-label">Estado Civil *</label>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="control-label">{{ historia_clinica.paciente_estado_civil }}</label>
+                    </div>
+                    <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                        <label for="inputName" class="control-label">Ocupacion *</label>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="control-label">{{ historia_clinica.paciente_ocupacion }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header letra color-background" style="background-color: rgb(85, 142, 212); text-align: center;
+    ">Datos preliminares para valoración del Glaucoma</div>
+                <input id="historiaClinicaId" type="hidden" value="{{ historia_clinica.id }}" />
+                <input id="pacienteId" type="hidden" value="{{ historia_clinica.paciente_id }}" />
+                <table width="100%">
+                    <tr>
+                        <td align="left">
+                            <input type="checkbox" name="afroamericano" id="afroamericano" {% if historia_clinica.afroamericano == "True" %}checked="checked"{% endif %} />
+                            <label for="afroamericano" class="control-label">Es de origen afroamericano</label>
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" name="diabetes" id="diabetes" {% if historia_clinica.diabetes == "True" %}checked="checked"{% endif %} />
+                            <label for="inputName" class="control-label">Tiene Diabetes</label>
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" name="antecedentesMiopia" id="antecedentesMiopia" {% if historia_clinica.antecedentes_miopia == "True" %}checked="checked"{% endif %} />
+                            <label for="inputName" class="control-label">Antecedentes familiares de miopía</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="inputUsername" class="control-label">Observaciones: </label>
+                        </td>
+                        <td>
+                            <textarea id="observaciones" name="observaciones" rows="5" cols="50">{{ historia_clinica.observaciones }}</textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group text-center">
+                <div class="card-header letra color-background" style="background-color: rgb(85, 142, 212); text-align: center;
+    ">Datos de la Consulta</div>
+                <table id="recetario" class="table" width="100%">
+                    <tr>
+                        <td align="left">
+                            <input type="checkbox" name="dolorOcularSevero" id="dolorOcularSevero" {% if historia_clinica.ultima_consulta.dolor_ocular_severo == "True" %}checked="checked"{% endif %} />
+                            <label for="dolorOcularSevero" class="control-label">Dolor Ocular Severo</label>
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" name="enrojecimientoOjo" id="enrojecimientoOjo" {% if historia_clinica.ultima_consulta.enrojecimiento_ojo == "True" %}checked="checked"{% endif %} />
+                            <label for="enrojecimientoOjo" class="control-label">Enrojecimiento del Ojo</label>
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" name="nauseasVomitos" id="nauseasVomitos" {% if historia_clinica.ultima_consulta.nauseas_vomitos == "True" %}checked="checked"{% endif %} />
+                            <label for="nauseasVomitos" class="control-label">Náuseas / vómitos</label>
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" name="visionBorrosa" id="visionBorrosa" {% if historia_clinica.ultima_consulta.vision_borrosa == "True" %}checked="checked"{% endif %} />
+                            <label for="visionBorrosa" class="control-label">Visión borrosa</label>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td align="left">
+                            <input type="checkbox" name="halos" id="halos" {% if historia_clinica.ultima_consulta.halos == "True" %}checked="checked"{% endif %} />
+                            <label for="halos" class="control-label">Halos alrededor de la luz</label>
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" name="perdidaVisionPeriferica" id="perdidaVisionPeriferica" {% if historia_clinica.ultima_consulta.perdida_vision_periferica == "True" %}checked="checked"{% endif %} />
+                            <label for="perdidaVisionPeriferica" class="control-label">Pérdida de la visión periférica</label>
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" name="visionTunel" id="visionTunel" {% if historia_clinica.ultima_consulta.vision_tunel == "True" %}checked="checked"{% endif %} />
+                            <label for="visionTunel" class="control-label">Visión de Túnel</label>
+                        </td>
+                        <td align="left">
+                            <input type="checkbox" name="usaEsteroides" id="usaEsteroides" {% if historia_clinica.ultima_consulta.usa_esteroides == "True" %}checked="checked"{% endif %} />
+                            <label for="usaEsteroides" class="control-label">Usa esteroides</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <label for="gradoMiopia" class="control-label">Grado de Miopía: </label>
+                            <select id="gradoMiopia" name="gradoMiopia">
+                                <option value="0" {% if historia_clinica.ultima_consulta.grado_miopia == "0" %}selected{% endif %}>Bajo</option>
+                                <option value="1" {% if historia_clinica.ultima_consulta.grado_miopia == "1" %}selected{% endif %}>Alto</option>
+                                <option value="2" {% if historia_clinica.ultima_consulta.grado_miopia == "2" %}selected{% endif %}>Muy Alto</option>
+                            </select>
+                        </td>
+                        <td align="left" colspan="2">
+                            <label for="presionIntraocular" class="control-label">Presión Intraocular: </label>
+                            <input type="textbox" name="presionIntraocular" id="presionIntraocular" value="{{ historia_clinica.ultima_consulta.presion_intraocular }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <label for="observacionesConsulta" class="control-label">Observaciones: </label>
+                        </td>
+                        <td colspan="3" align="left">
+                            <textarea id="observacionesConsulta" name="observacionesConsulta" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.observaciones }}"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <label for="diagnostico" class="control-label">Diagnóstico general: </label>
+                        </td>
+                        <td colspan="3" align="left">
+                            <textarea id="diagnostico" name="diagnostico" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.diagnostico }}"></textarea>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td align="left">
+                            <label for="receta" class="control-label">Receta: </label>
+                        </td>
+                        <td colspan="3" align="left">
+                            <textarea id="receta" name="receta" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.receta }}"></textarea>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="form-group text-center">
+                <input type="button" class="btn btn-warning" onclick="mostrarDialogoPrediccion()" value="Realizar Predicción y Registrar" />
+            </div>
+            <div style="margin-top: 20px;">
+      <button class="btn btn-primary col-md-3" onclick="printTableContent('recetario', 'Receta')"> Imprimir Receta
+      </button>
+    </div>
+        </div>
+    </div>
+</div>
+</div>
+<div id="dlgPrediccion">
+    <input type="hidden" id="hidPrediccion" />
+    <input type="hidden" id="hidProbabilidad" />
+    <table width="500px">
+        <tr>
+            <td align="left">
+                <label class="control-label">Predicción:</label>
+            </td>
+            <td align="left">
+                <label id="lblPrediccionTexto" class="control-label"></label>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <label class="control-label">Probabilidad de Glaucoma:</label>
+            </td>
+            <td align="left">
+                <label id="lblPrediccionProbabilidad" class="control-label"></label>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <label for="prediccionCorrecta" class="control-label">Esta predicción es correcta</label>
+            </td>
+            <td>
+                <select name="prediccionCorrecta" id="prediccionCorrecta">
+                    <option value="yes">Sí</option>
+                    <option value="no">No</option>
+                    <option value="unknown">No lo sé</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <input class="ui-button" type="button" onclick="registrarConsulta()" value="Registrar Consulta" />
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+            <div class="hamburger-menu d-lg-none">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Base de Conocimiento</h1>
+        <div class="breadcrumbs">
+          <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+            <li><a href="/categoria/crearCategoria">Registrar Categoria</a></li>
+            <li><a href="/categoria/listarCategoria">Listar categoria</a></li>
+          </ul>
+          <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+            <li><a href="/conocimientos/crearConocimiento">Registrar Conocimiento</a></li>
+            <li><a href="/conocimientos/listarConocimiento">Listar Conocimiento</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+    <img class="header-img" src="/images/contact-bg.png" alt="">
+  </header>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="card card-register mx-auto mt-5">
+            <center>
+              <table class="table" id="buscador" style="border-bottom: 5px solid #4fa9e3;" >
+                <thead class="card-header">
+                  <tr>
+                    <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Descripcion</th>
+                    <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Categoria</th>
+                    <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Explicacion</th>
+                    <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col" class="noPrint">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="card-body container" >
+                  {% if conocimientos %}
+                    {% for conocimiento in conocimientos %}
+                      <tr>
+                        <td>{{ conocimiento.descripcion }}</td>
+                        <td>{{ conocimiento.categoria }}</td>
+                        <td>{{ conocimiento.explicacion }}</td>
+                        <td class="noPrint">
+                          <a class="btn btn-warning" href="/conocimiento/editar/{{ conocimiento.id }}">Modificar</a>
+                          <a class="btn btn-danger"  href="/conocimiento/borrar/{{ conocimiento.id }}">Eliminar</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% else %}
+                    <tr>
+                      <td colspan="9" class="text-center">No se encontraron resultados</td>
+                    </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </center>
+          </div>
+      </div>
+    </div>
+  </div>
+  <script src="/js/buscador.js"></script>
+{% endblock %}

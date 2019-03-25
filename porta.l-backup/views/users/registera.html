@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Registro</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <link rel="icon" type="image/png" href="/imgages/icons/favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/fonts/iconic/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/login/animate.css"> 
+  <link rel="stylesheet" type="text/css" href="/stylesheets/login/hamburgers.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/login/animsition.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/login/select2.min.css"> 
+  <link rel="stylesheet" type="text/css" href="/stylesheets/login/daterangepicker.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/login/util.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/login/main.css">
+  <script src="/js/jquery/jquery-3.1.1.min.js"></script>
+  <script src="/js/jquery/jquery.serializejson.min.js"></script>
+  <script src="/js/bootstrap/bootbox.min.js"></script>
+</head>
+<body>
+  <div class="limiter">
+    <div class="container-login100" style="background-image: url('/images/background/2.jpg');">
+      <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+        <form class="login100-form ajax-form" method="post" url="/user/register">
+          <span class="login100-form-title p-b-49">
+            Registrate
+          </span>
+          <div class="wrap-input100 validate-input m-b-23" data-validate = "El Nombre es Requerido">
+            <span class="label-input100">Nombre</span>
+            <input class="input100" type="text" name="nombre" placeholder="Escriba su Nombre">
+            <span class="focus-input100" data-symbol="&#xf206;"></span>
+          </div>
+          <div class="wrap-input100 validate-input m-b-23" data-validate = "El Apellido es Requerido">
+            <span class="label-input100">Apellido</span>
+            <input class="input100" type="text" name="apellido" placeholder="Escriba su Apellido">
+            <span class="focus-input100" data-symbol="&#xf206;"></span>
+          </div>
+          <div class="wrap-input100 validate-input m-b-23" data-validate = "El Nombre de Usuario es Requerido">
+            <span class="label-input100">Nombre de Usuario</span>
+            <input class="input100" type="text" name="username" placeholder="Escriba su Nombre de Usuario">
+            <span class="focus-input100" data-symbol="&#xf206;"></span>
+          </div>
+          <div class="wrap-input100 validate-input m-b-23" data-validate = "El Correo es Requerido">
+            <span class="label-input100">Correo</span>
+            <input class="input100" type="text" name="correo" placeholder="Escriba su Correo">
+            <span class="focus-input100" data-symbol="&#x2709;"></span>
+          </div>
+          <div class="wrap-input100 validate-input" data-validate="La Contraseña es Requerida">
+            <span class="label-input100">Contraseña</span>
+            <input class="input100" type="password" name="pass" placeholder="Escriba su Contraseña">
+            <span class="focus-input100" data-symbol="&#xf190;"></span>
+          </div>
+          <br>
+          <div class="wrap-input100 validate-input" data-validate="El Tipo de Usuario es Requerido">
+            <span class="label-input100">Tipo de Usuario</span>
+            <br>
+            <br>
+            <select class="form-control" id="tipoUsuario" name="tipoUsuario">
+              <option >Administrador</option>
+              <option >Ingeniero</option>
+              <option >Medico</option>
+              <option >Secretaria</option>
+            </select>
+            <span class="focus-input100"></span>
+          </div>
+          <br>
+          <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+              <div class="login100-form-bgbtn"></div>
+              <button class="login100-form-btn">
+                Registrarse
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="/js/animsition.min.js"></script>
+  <script src="/js/popper.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src="/js/select2.min.js"></script>
+  <script src="/js/moment.min.js"></script>
+  <script src="/js/daterangepicker.js"></script>
+  <script src="/js/countdowntime.js"></script>
+  <script src="/js/app/ajax.js"></script>
+</body>
+</html>

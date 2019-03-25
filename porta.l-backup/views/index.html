@@ -1,0 +1,268 @@
+<!DOCTYPE html>                                    
+<html lang="en">
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/swiper.min.css">
+  <link rel="stylesheet" href="/css/design.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+            <div class="site-branding d-flex align-items-center">
+            </div>
+            <nav class="site-navigation d-flex justify-content-end align-items-center">
+              <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-items-center">
+                <li class="nav-item"><a href="/">Principal</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user/register">Registrar</a></li>
+                {% if tipo == "Administrador" or tipo == "Medico" %}
+                <li class="nav-item"><a href="/historia_clinica/listar">Historias Clínicas</a></li>
+                <li class="nav-item"><a href="/inferencia/listar">Predicciones incorrectas</a></li>
+                {% endif %}
+                {% if tipo != "Administrador" %}
+                  <li><a href="/contact">Contacto</a></li>
+                {% endif %}
+                {% if tipo == "Administradora" or tipo == "Ingeniero" %}
+                  <li class="nav-item"><a href="/conocimientos/crearConocimiento">Adquisicion Conocimiento</a></li>
+                {% endif %}
+                {% if tipo == "Administrador" or tipo == "Secretaria" %}
+                  <li><a href="/paciente/mostrarPacientes">Administrar Pacientes</a></li>
+                {% endif %}
+                {% if username %}
+                  {% if tipo == "Administrador" %}
+                    <li class="nav-item"><a class="nav-link" href="/user/show">Administrar Usuarios</a></li>
+                  {% endif %}
+                  <li class="nav-item"><a class="nav-link" href="/user/logout">Salir( {{ username }} )</a></li>
+                {% else %}
+                  <li class="nav-item"><a class="nav-link" href="/user/login">Ingresar</a></li>
+                {% endif %}
+                
+                  <li class="call-btn button gradient-bg mt-3 mt-md-0">
+                   <a class="d-flex justify-content-center align-items-center" href="#"><img src="/images/emergency-call.png"> +591 (7) 071 5092</a>
+                  </li>
+              </ul>
+            </nav>
+            <div class="hamburger-menu d-lg-none">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-container hero-slider">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide hero-content-wrap" style="background-image: url('/images/hero.jpg')">
+          <div class="hero-content-overlay position-absolute w-100 h-100">
+            <div class="container h-100">
+              <div class="row h-100">
+                <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-start">
+                  <header class="entry-header">
+                    <h2 style=" color: black;">El Mejor <br>Servicio de Oftalmología</h2>
+                  </header>
+                  <div class="entry-content mt-4">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                  </div>
+                  <footer class="entry-footer d-flex flex-wrap align-items-center mt-4">
+                    <a href="#" class="button gradient-bg">leer mas</a>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide hero-content-wrap" style="background-image: url('/images/hero.jpg')">
+          <div class="hero-content-overlay position-absolute w-100 h-100">
+            <div class="container h-100">
+              <div class="row h-100">
+                <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-start">
+                  <header class="entry-header">
+                    <h2 style=" color: black;">El Mejor <br>Servicio de Oftalmología</h2>
+                  </header>
+                  <div class="entry-content mt-4">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                  </div>
+                  <footer class="entry-footer d-flex flex-wrap align-items-center mt-4">
+                    <a href="#" class="button gradient-bg">leer mas</a>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide hero-content-wrap" style="background-image: url('/images/hero.jpg')">
+          <div class="hero-content-overlay position-absolute w-100 h-100">
+            <div class="container h-100">
+              <div class="row h-100">
+                <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-start">
+                  <header class="entry-header">
+                    <h2 style=" color: black;">El Mejor <br>Servicio de Oftalmología</h2>
+                  </header>
+                  <div class="entry-content mt-4">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                  </div>
+                  <footer class="entry-footer d-flex flex-wrap align-items-center mt-4">
+                    <a href="#" class="button gradient-bg">leer mas</a>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pagination-wrap position-absolute w-100">
+        <div class="swiper-pagination d-flex flex-row flex-md-column"></div>
+      </div>
+    </div>
+  </header>
+  <div class="homepage-boxes">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="opening-hours">
+            <h2 class="d-flex align-items-center">Horario de Atencion</h2>
+            <ul class="p-0 m-0">
+              <li>Lunes - Jueves <span>8:00 - 19:00</span></li>
+              <li>Viernes <span>8:00 - 18:30</span></li>
+              <li>Sabado <span>9:30 - 16:00</span></li>
+              <li>Domingo <span>Cerrado</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 mt-5 mt-md-0">
+          <div class="emergency-box">
+            <h2 class="d-flex align-items-center">Emergencia</h2>
+            <div class="call-btn button gradient-bg">
+              <a class="d-flex justify-content-center align-items-center" href="#"><img src="/images/emergency-call.png"> +591 (7) 071 5092</a>
+            </div>
+            <p>Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Donec males uada lorem maximus mauris sceler isque, at rutrum nulla.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="our-departments">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="our-departments-wrap">
+            <h2>Alguna Informacion Importante</h2>
+            <div class="row">
+              <div class="col-12 col-md-6 col-lg-6">
+                <div class="our-departments-cont">
+                  <header class="entry-header d-flex flex-wrap align-items-center">
+                    <img src="/images/blood-sample-2.png" alt="">
+                    <h3>Cirugía</h3>
+                  </header>
+                  <div class="entry-content">
+                    <p>Lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus.</p>
+                  </div>
+                  <footer class="entry-footer">
+                    <a href="#">leer mas</a>
+                  </footer>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-6">
+                <div class="our-departments-cont">
+                  <header class="entry-header d-flex flex-wrap align-items-center">
+                    <img src="/images/stretcher.png" alt="">
+                    <h3>Laboratorio Médico</h3>
+                  </header>
+                  <div class="entry-content">
+                    <p>Lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus.</p>
+                  </div>
+                  <footer class="entry-footer">
+                    <a href="#">leer mas</a>
+                  </footer>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-6">
+                <div class="our-departments-cont">
+                  <header class="entry-header d-flex flex-wrap align-items-center">
+                    <img src="/images/scanner.png" alt="">
+                    <h3>Neurología</h3>
+                  </header>
+                  <div class="entry-content">
+                    <p>Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien.</p>
+                  </div>
+                  <footer class="entry-footer">
+                    <a href="#">leer mas</a>
+                  </footer>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 col-lg-6 mb-0">
+                <div class="our-departments-cont">
+                  <header class="entry-header d-flex flex-wrap align-items-center">
+                    <img src="/images/glasses.png" alt="">
+                    <h3>Oftalmología</h3>
+                  </header>
+                  <div class="entry-content">
+                    <p>Lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus.</p>
+                  </div>
+                  <footer class="entry-footer">
+                    <a href="#">leer mas</a>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-widgets">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="foot-about">
+              <h2><a href="#"><img  alt=""></a></h2>
+              <p class="copyright">Copyright &copy;<script>document.write(new Date().getFullYear());</script></p>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+            <div class="foot-contact">
+              <h2>Contacto</h2>
+              <ul class="p-0 m-0">
+                <li><span>Ubicacion:</span> &nbsp Av. San Martin N°173 entre Bolivar y Heroinas edificio PALMER 1er piso Oficina N°2</li>
+                <li><span>Telefono:</span> 4038290 - 70715092 </li>
+                <li><span>Correo:</span> tuCorreo@gmail.com</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+            <div class="foot-links">
+              <h2>Links de Ayuda</h2>
+              <ul class="p-0 m-0">
+                <li><a href="/">Principal</a></li>
+                <li><a href="/about">Sobre Nosotros</a></li>
+                <li><a href="/contact">Contacto</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script type='text/javascript' src='/js/jquery/jquery.js'></script>
+  <script type='text/javascript' src='/js/jquery/jquery.collapsible.min.js'></script>
+  <script type='text/javascript' src='/js/swiper.min.js'></script>
+  <script type='text/javascript' src='/js/jquery/jquery.countdown.min.js'></script>
+  <script type='text/javascript' src='/js/circle-progress.min.js'></script>
+  <script type='text/javascript' src='/js/jquery/jquery.countTo.min.js'></script>
+  <script type='text/javascript' src='/js/jquery/jquery.barfiller.js'></script>
+  <script src="/js/jquery/jquery-3.1.1.min.js"></script>
+  <script src="/js/jquery/jquery.serializejson.min.js"></script>
+  <script src="/js/bootstrap/bootbox.min.js"></script>
+  <script src="/js/bootstrap/bootstrap.min.js"></script>
+  <script src="/js/app/ajax.js"></script>  
+</body>
+</html>

@@ -1,0 +1,108 @@
+ul.botones
+{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+ul.botones li
+{
+    list-style: none;
+}
+ul.botones li a
+{
+    position: relative;
+    display: block;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    background: #fff;
+    font-size: 30px;
+    color: #fff;
+}
+ul.botones li a:before
+{
+    content: '';
+    font-family: fontAwesome;
+    width: 100%;
+    height: 100%;
+    background: #666;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: bottom;
+    transform:  translateY(-100%) rotateX(90deg);
+    transition: .5s;
+}
+ul.botones li a:after
+{
+    content: '';
+    font-family: fontAwesome;
+    width: 100%;
+    height: 100%;
+    background: #333;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top;
+    transform: translateY(0) rotateX(0deg);
+    transition: .5s;
+}
+ul.botones li a:hover:before
+{
+    transform:  translateY(0px) rotateX(0deg);
+}
+ul.botones li a:hover:after
+{
+    transform: translateY(100%) rotateX(90deg);
+}
+ul.botones li:nth-child(1) a:before,
+ul.botones li:nth-child(1) a:after
+{
+    content: '\f09a';
+}
+ul.botones li:nth-child(2) a:before,
+ul.botones li:nth-child(2) a:after
+{
+    content: '\f099';
+}
+ul.botones li:nth-child(3) a:before,
+ul.botones li:nth-child(3) a:after
+{
+    content: '\f0d5';
+}
+ul.botones li:nth-child(4) a:before,
+ul.botones li:nth-child(4) a:after
+{
+    content: '\f0e1';
+}
+ul.botones li:nth-child(5) a:before,
+ul.botones li:nth-child(5) a:after
+{
+    content: '\f16d';
+}
+
+ul.botones li:nth-child(1) a:before
+{
+    background: #3b5998;
+}
+ul.botones li:nth-child(2) a:before
+{
+    background: #55acee;
+}
+ul.botones li:nth-child(3) a:before
+{
+    background: #dd4b39;
+}
+ul.botones li:nth-child(4) a:before
+{
+    background: #007bb5;
+}
+ul.botones li:nth-child(5) a:before
+{
+    background: #cd486b;
+}

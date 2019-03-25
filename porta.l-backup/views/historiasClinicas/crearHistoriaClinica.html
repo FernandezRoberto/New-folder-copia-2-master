@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+{% block content %}
+<style type="text/css">
+    td {
+        vertical-align: center;
+        horizontal-align: left;
+        padding-left: 30px;
+        height: 70px;
+    }
+
+    input[type=checkbox] {
+        -moz-appearance:none;
+        -webkit-appearance:none;
+        -o-appearance:none;
+        width: 20px;
+        height: 20px;
+        border-width: 2px;
+        border-color: #009;
+        border-style: solid;
+    }
+
+    input[type=checkbox]:checked {
+        background: #009;
+        box-shadow: inset 0px 0px 0px 2px #fff;
+    }
+
+    button {
+        all: none;
+    }
+</style>
+
+<div class="hamburger-menu d-lg-none">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+    var getUrl = window.location;
+    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+    function registrarHistoriaClinica() {
+        $.ajax({
+            url: '/historia_clinica/crear',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                nombre: $('#nombre').val(),
+                paterno: $('#paterno').val(),
+                materno: $('#materno').val(),
+                fechaNacimiento: $('#fechaNacimiento').val(),
+                direccion: $('#direccion').val(),
+                tipoDocumento: $('#tipoDocumento').val(),
+                nroDocumento: $('#nroDocumento').val(),
+                estadoCivil: $('#estadoCivil').val(),
+                ocupacion: $('#ocupacion').val(),
+                afroamericano: $('#afroamericano').is(':checked'),
+                antecedentes_miopia: $('#antecedentesMiopia').is(':checked'),
+                diabetes: $('#diabetes').is(':checked'),
+                observaciones: $('#observaciones').val()
+            }),
+            success: function(result) {
+                bootbox.alert("Paciente registrado exitosamente..", function(){ window.location.href = '/paciente/mostrarPacientes'; });
+                
+            },
+            error: function() {
+                bootbox.alert('Hubo un error al registrar el paciente');
+            }
+        });
+    }
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Pacientes</h1>
+            <div class="breadcrumbs">
+                <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+                    <li><a href="/historia_clinica/crear">Registrar</a></li>
+                    <li><a href="/paciente/mostrarPacientes">listar</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<img class="header-img" src="/images/about-bg.png" alt="">
+</header>
+<link rel="stylesheet" href="/stylesheets/app/estilos.css">
+<div class="container">
+    <form class="login100-form ajax-form" role="form" method="POST" url="{{post_url}}" id="newPacienteForm">
+    <div class="col-md-12">
+        <div class="card card-register mx-auto mt-5" style=" border-bottom-color: #558ed4;
+    border-bottom-width: thick;">
+
+            <div class="card-body">
+                <div class="card-header letra color-background" style="background-color: rgb(85, 142, 212); text-align: center;
+    ">Datos Personales del Paciente</div>
+                <div class="row">
+                    <div class="col-12 col-md-12 validate-container">
+                        <div class=" validate-input input-group validate-input-container" >
+                            <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                                <label for="paterno" class="control-label">Apellido Paterno: </label>
+                            </div>
+                            <div class="col-12 col-md-10">
+                                <input type="text" class="form-control" name="paterno" id="paterno" placeholder="Ingrese su apellido paterno"
+                                validate-required="true" validate-required-message="El apellido paterno es requerido."
+                                validate-onlyLetters="true" validate-onlyLetters-message="El apellido paterno debe contener solo letras."
+                                validate-trainCase="true"
+                                validate-trainCase-message="Cada palabra del apellido paterno debe comenzar con mayuscula y las demas con minuscula."
+                                validate-maxLength="50"
+                                validate-maxLength-message="La cantidad maxima de caracteres es de {maxLength}, usted tiene {length}."
+                                validate-minLength="3"
+                                validate-minLength-message="La cantidad minima de caracteres es de {minLength}, usted tiene {length}."
+                                >
+                            </div>
+                        </div>
+                        <div class="validator-error-container">
+                          <ul></ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 validate-container">
+                        <div class=" validate-input input-group validate-input-container" >
+                            <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                                <label for="inputName" class="control-label">Apellido Materno: </label>
+                            </div>
+                            <div class="col-12 col-md-10">
+                                <input type="text" class="form-control" name="materno" id="materno" placeholder="Ingrese su apellido mateno"
+                                validate-required="true" validate-required-message="El apellido materno es requerido."
+                                validate-onlyLetters="true" validate-onlyLetters-message="El apellido materno debe contener solo letras."
+                                validate-trainCase="true"
+                                validate-trainCase-message="Cada palabra del apellido materno debe comenzar con mayuscula y las demas con minuscula."
+                                validate-maxLength="50"
+                                validate-maxLength-message="La cantidad maxima de caracteres es de {maxLength}, usted tiene {length}."
+                                validate-minLength="3"
+                                validate-minLength-message="La cantidad minima de caracteres es de {minLength}, usted tiene {length}."
+                                >
+                            </div>
+                        </div>
+                        <div class="validator-error-container">
+                          <ul></ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 validate-container">
+                        <div class=" validate-input input-group validate-input-container" >
+                            <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                                <label for="inputUsername" class="control-label">Nombre(s): </label>
+                            </div>
+                            <div class="col-12 col-md-10">
+                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                placeholder="Ingrese su nombre" 
+                                validate-required="true" validate-required-message="El nombre es requerido."
+                                validate-onlyLetters="true" validate-onlyLetters-message="El nombre debe contener solo letras."
+                                validate-trainCase="true"
+                                validate-trainCase-message="Cada palabra del nombre debe comenzar con mayuscula y las demas con minuscula."
+                                validate-maxLength="50"
+                                validate-maxLength-message="La cantidad maxima de caracteres es de {maxLength}, usted tiene {length}."
+                                validate-minLength="3"
+                                validate-minLength-message="La cantidad minima de caracteres es de {minLength}, usted tiene {length}."
+                                >
+                            </div>
+                        </div>
+                        <div class="validator-error-container">
+                          <ul></ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 validate-container">
+                        <div class=" validate-input input-group validate-input-container" >  
+                            <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                                <label for="inputName" class="control-label">Fecha de Nac.: </label>
+                            </div>
+                            <div class="col-12 col-md-10">
+                                <input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" placeholder="Ingrese su fecha de nacimiento"
+                                validate-required="true" validate-required-message="La fecha de nacimiento es requerido."
+                                validate-date="false" validate-date-message="La fecha de nacimiento es invalida"
+                                >
+                            </div>
+                        </div>
+                        <div class="validator-error-container">
+                          <ul></ul>
+                        </div>
+                    </div>  
+                    <div class="col-12 col-md-12 validate-container">
+                        <div class=" validate-input input-group validate-input-container" >    
+                            <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                                <label for="inputUsername" class="control-label">Direccion: </label>
+                            </div>
+                            <div class="col-12 col-md-10">
+                                <input type="text" class="form-control" name="direccion" id="direccion"
+                                placeholder="Ingrese su direccion"
+                                validate-required="true" validate-required-message="La direccion es requerido."
+                                validate-minLength="3"
+                                validate-minLength-message="La cantidad minima de caracteres es de {minLength}, usted tiene {length}."
+                                >
+                            </div>
+                        </div>
+                        <div class="validator-error-container">
+                          <ul></ul>
+                        </div>
+                    </div> 
+                    <div class="col-12 col-md-12 ">
+                        <div class=" input-group" >   
+                            <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                                <label for="inputUsername" class=" control-label">Tipo Documento: </label>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <select class="form-control" id="tipoDocumento" name="tipoDocumento">
+                                    <option value="Carnet de Identidad">Carnet de Identidad</option>
+                                    <option value="Pasaporte">Pasaporte</option>
+                                    <option value="NIT">NIT</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-6 validate-container">
+                                <div class=" validate-input input-group validate-input-container" >  
+                                    <div class="col-12 col-md-4" style="margin-bottom: 10px;">
+                                        <label for="inputUsername" class="control-label">Nro Documento:</label>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <input type="text" class="form-control" name="nroDocumento" id="nroDocumento"
+                                        placeholder="Ingrese su numero de documento"
+                                        validate-required="true" validate-required-message="El numero de documento es requerido."
+                                        validate-onlyNumbers="true" validate-onlyNumbers-message="El numero de documento debe contener solo numeros."
+                                        validate-maxLength="30"
+                                        validate-maxLength-message="La cantidad maxima de numeros es de {maxLength}, usted tiene {length}."
+                                        validate-minLength="5"
+                                        validate-minLength-message="La cantidad minima de numeros es de {minLength}, usted tiene {length}."
+                                        >
+                                    </div>
+                                </div>
+                                <div class="validator-error-container">
+                                  <ul></ul>
+                                </div>
+                            </div>    
+                        </div>
+                    </div> 
+                    <div class="col-12 col-md-12 ">
+                        <div class=" input-group" > 
+                            <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                                <label for="inputName" class="control-label">Estado Civil :</label>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <select class="form-control" id="estadoCivil" name="estadoCivil">
+                                    <option>Soltero(a)</option>
+                                    <option>Casado(a)</option>
+                                    <option>Divorsiado(a)</option>
+                                    <option>Viudo(a)</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-6 validate-container">
+                                <div class=" validate-input input-group validate-input-container" >  
+                                    <div class="col-12 col-md-4" style="margin-bottom: 10px;">
+                                        <label for="inputName" class="control-label">Ocupacion :</label>
+                                    </div>
+                                    <div class="col-12 col-md-8">
+                                        <input type="text" class="form-control" name="ocupacion" id="ocupacion" placeholder="Ingrese su profesión"
+                                        validate-required="true" validate-required-message="La ocupacion es requerido."
+                                        validate-onlyLetters="true" validate-onlyLetters-message="La ocupacion debe contener solo letras."
+                                        validate-maxLength="30"
+                                        validate-maxLength-message="La cantidad maxima de caracteres es de {maxLength}, usted tiene {length}."
+                                        validate-minLength="5"
+                                        validate-minLength-message="La cantidad minima de caracteres es de {minLength}, usted tiene {length}."
+                                        >
+                                    </div>
+                                </div>
+                                <div class="validator-error-container">
+                                  <ul></ul>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>        
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-header letra color-background" style="background-color: rgb(85, 142, 212); text-align: center;
+    ">Datos preliminares para valoración del Glaucoma</div>
+                <table>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="afroamericano" id="afroamericano">
+                            <label for="afroamericano" class="control-label">Es de origen afroamericano</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="diabetes" id="diabetes">
+                            <label for="inputName" class="control-label">Tiene Diabetes: </label>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="antecedentesMiopia" id="antecedentesMiopia">
+                            <label for="inputName" class="control-label">Antecedentes familiares de miopía.: </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="inputUsername" class="control-label">Observaciones: </label>
+                        </td>
+                        <td>
+                            <textarea id="observaciones" name="observaciones" rows="5" cols="50"></textarea>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="form-group text-center">
+                <input type="submit" class="btn btn-warning" value="Registrar Paciente" />
+            </div>
+            <br>
+        </div>
+    </div>
+    </form>
+</div>
+</div>
+<script src="/js/app/paciente/validatePaciente.js"></script>
+{% endblock %}

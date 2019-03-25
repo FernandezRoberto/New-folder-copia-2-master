@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hamburger-menu d-lg-none">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Historias clínicas</h1>
+            <div class="breadcrumbs">
+                <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+                    <li><a href="/historia_clinica/listarDiaActual">Listar consultas del dia actual</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<img class="header-img" src="/images/contact-bg.png" alt="">
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-register mx-auto mt-5">
+                <center>
+                    <table class="table" id="buscador" style="border-bottom: 5px solid #4fa9e3;" >
+                        <thead class="card-header">
+                        <tr>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Código</th>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Apellido Paterno</th>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Apellido Materno</th>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Nombre(s)</th>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Fecha de Nacimiento</th>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Fecha de cita</th>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Fecha de reconsulta</th>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col" class="noPrint">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody class="card-body container" >
+                        {% if historias_clinicas %}
+                        {% for historia_clinica in historias_clinicas %}
+                            {% if historia_clinica.paciente_is_deleted == "False" %}
+                                <tr>
+                                        <td>{{ historia_clinica.id }}</td>
+                                        <td>{{ historia_clinica.paciente_apellido_paterno }}</td>
+                                        <td>{{ historia_clinica.paciente_apellido_materno }}</td>
+                                        <td>{{ historia_clinica.paciente_nombre }}</td>
+                                        <td>{{ historia_clinica.paciente_fecha_nacimiento }}</td>
+                                        <td>{{ historia_clinica.paciente_fecha_cita }}</td>
+                                        <td>{{ historia_clinica.paciente_fecha_reconsulta }}</td>
+                                    
+                                    <td class="noPrint" style="display: grid;">
+                                        <a class="btn btn-warning" href="/historia_clinica/ver/{{ historia_clinica.id }}">Ver</a>
+                                        <a class="btn btn-danger"  href="/historia_clinica/editar/{{ historia_clinica.id }}">Diagnostico</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center">No se encontraron resultados</td>
+                        </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/buscador.js"></script>
+{% endblock %}
+

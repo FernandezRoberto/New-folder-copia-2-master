@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hamburger-menu d-lg-none">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<link rel="stylesheet" href="/stylesheets/app/estilos.css">
+
+<link rel="stylesheet" href="/js/jquery-ui/jquery-ui.css" />
+<script type="text/javascript" src="/js/jquery-ui/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+    var getUrl = window.location;
+    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+    function retrain() {
+        $.ajax({
+            url: '/inferencia/reentrenar',
+            type: 'post',
+            dataType: 'json',
+            success: function(result) {
+                alert('Se ha re-entrenado el modelo exitosamente.');
+                window.location.href = baseUrl + '/listar';
+            },
+            error: function() {
+                alert('Ha ocurrido un error al re-entrenar el modelo.');
+            }
+        });
+    }
+
+    function viewModelGraph() {
+        $('#imgModelGraph').attr('src', '#');
+        $('#imgModelGraph').attr('src', '{{ model_graph_url }}');
+        $('#dlgModelGraph').dialog('open');
+    }
+
+    $(document).ready(function() {
+        $('.ui-button').button();
+        $('#dlgModelGraph').dialog({title: 'Red Bayesiana', modal: true, width: 630, height: 720, autoOpen: false});
+    });
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Errores de predicción</h1>
+            <div>
+                <input id="btnReentrenar" class="ui-button" value="Re-entrenar modelo" onclick="retrain()" />
+                <input id="btnRedBayesiana" class="ui-button" value="Ver red bayesiana" onclick="viewModelGraph()" />
+            </div>
+        </div>
+    </div>
+</div>
+<img class="header-img" src="/images/contact-bg.png" alt="">
+</header>
+<div class="container">
+        <div class="col-md-12">
+            <div class="card card-register mx-auto mt-5">
+                <center>
+                    <table width="100%" border="1">
+                        <thead class="card-header">
+                        <tr>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Fecha</th>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Síntomas</th>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Probabilidad de Glaucoma</th>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Observaciones</th>
+                            <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Diagnóstico</th>
+                        </tr>
+                        </thead>
+                        <tbody class="card-body container" >
+                        {% if errores %}
+                        {% for error in errores %}
+                        <tr>
+                            <td align="left">{{ error.fecha }}</td>
+                            <td align="left">{{ error.sintomas }}</td>
+                            <td align="left">{{ error.probabilidad_glaucoma }}</td>
+                            <td align="left">{{ error.observaciones }}</td>
+                            <td align="left">{{ error.diagnostico }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center">No hay errores de clasificación reportados</td>
+                        </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </center>
+            </div>
+    </div>
+</div>
+<div id="dlgModelGraph">
+    <img id="imgModelGraph" width="600px" height="700px" />
+</div>
+{% endblock %}

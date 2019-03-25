@@ -1,0 +1,5 @@
+class DictModel(db.Model):
+    def to_dict(self):
+       resp =  dict([(p, unicode(getattr(self, p))) for p in self.properties()])
+       resp['id'] = self.key().id()
+       return resp

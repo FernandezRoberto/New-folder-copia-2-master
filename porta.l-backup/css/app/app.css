@@ -1,0 +1,26 @@
+.validate-error .validate-input-container {
+    border: red 1px solid !important;
+}
+
+.validate-error label {
+    color: red !important;
+}
+
+.validate-error .validate-input-container input {
+    border-right: red 1px solid !important;
+}
+
+.validate-error .validate-input-container .input-group-append .input-group-text i {
+    color: red;
+}
+
+.validator-error-container {
+    font-size: 13px;
+    line-height: 1;
+    vertical-align: top;
+    margin-top: 10px;
+}
+
+.validator-error-container ul li {
+    color: red;
+}

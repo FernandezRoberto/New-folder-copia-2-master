@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hamburger-menu d-lg-none">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Pacientes</h1>
+      <div class="breadcrumbs">
+        <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+          <li><a href="/historia_clinica/crear">Registrar</a></li>
+          <li><a href="/paciente/mostrarPacientes">listar</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<img class="header-img" src="/images/contact-bg.png" alt="">
+</header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-register mx-auto mt-5">
+        <center>
+          <table class="table" id="buscador" style="border-bottom: 5px solid #4fa9e3;" >
+            <thead class="card-header">
+              <tr>
+                <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Nombre(s)</th>
+                <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Apellido Paterno</th>
+                <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Apellido Materno</th>
+                <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Fecha De Nacimiento</th>
+                <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Direccion</th>
+                <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Nro Documento</th>
+                <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Fecha Cita</th>
+                <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Fecha Reconsulta</th>
+                <th class="letra color-background" style="text-align: center; background: #4fa9e3;****" scope="col" class="noPrint">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="card-body container" >
+              {% if pacientes %}
+                {% for paciente in pacientes %}
+                <tr>
+                  <td>{{ paciente.nombre }}</td>
+                  <td>{{ paciente.paterno }}</td>
+                  <td>{{ paciente.materno }}</td>
+                  <td>{{ paciente.fechaNacimiento }}</td>
+                  <td>{{ paciente.direccion }}</td>
+                  <td>{{ paciente.nroDocumento }}</td>
+                  <td>{{ paciente.fechaCita }}</td>
+                  <td>{{ paciente.fechaReconsulta }}</td>
+
+                  <td class="noPrint" style="display: inline-flex;">
+                    <a class="btn btn-cita" href="/paciente/reconsulta/{{ paciente.id }}">Cita</a>
+                    <a  class="btn btn-warning fa fa-edit " href="/paciente/editar/{{ paciente.id }}"></a>
+                    <a class="btn btn-danger fa fa-trash " href="/paciente/eliminar/{{ paciente.id }}"></a> 
+                  </td>
+                </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="9" class="text-center">No se encontraron resultados</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/buscador.js"></script>
+{% endblock %}

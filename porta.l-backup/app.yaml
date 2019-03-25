@@ -1,0 +1,30 @@
+runtime: python27
+threadsafe: true
+
+handlers:
+- url: /js
+  static_dir: js
+- url: /bootstrap
+  static_dir: bootstrap
+- url: /css
+  static_dir: css
+- url: /datatables.net
+  static_dir: datatables.net
+- url: /datatables.net-bs
+  static_dir: datatables.net-bs
+- url: /assets
+  static_dir: assets
+- url: /stylesheets
+  static_dir: stylesheets
+- url: /fonts
+  static_dir: fonts
+- url: /images
+  static_dir: images
+- url: /.*
+  script: Main.application
+
+libraries:
+- name: jinja2                                                                  
+  version: latest
+- name: PIL
+  version: 1.1.7
