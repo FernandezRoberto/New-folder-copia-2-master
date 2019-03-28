@@ -46,20 +46,22 @@
                         <tbody class="card-body container" >
                         {% if historias_clinicas %}
                         {% for historia_clinica in historias_clinicas %}
-                        <tr>
-                                <td>{{ historia_clinica.id }}</td>
-                                <td>{{ historia_clinica.paciente_apellido_paterno }}</td>
-                                <td>{{ historia_clinica.paciente_apellido_materno }}</td>
-                                <td>{{ historia_clinica.paciente_nombre }}</td>
-                                <td>{{ historia_clinica.paciente_fecha_nacimiento }}</td>
-                                <td>{{ historia_clinica.paciente_fecha_cita }}</td>
-                                <td>{{ historia_clinica.paciente_fecha_reconsulta }}</td>
-                            
-                            <td class="noPrint" style="display: grid;">
-                                <a class="btn btn-warning" href="/historia_clinica/ver/{{ historia_clinica.id }}">Ver</a>
-                                <a class="btn btn-danger"  href="/historia_clinica/editar/{{ historia_clinica.id }}">Diagnostico</a>
-                            </td>
-                        </tr>
+                            {% if historia_clinica.paciente_is_deleted == "False" %}
+                                        <tr>
+                                                <td>{{ historia_clinica.id }}</td>
+                                                <td>{{ historia_clinica.paciente_apellido_paterno }}</td>
+                                                <td>{{ historia_clinica.paciente_apellido_materno }}</td>
+                                                <td>{{ historia_clinica.paciente_nombre }}</td>
+                                                <td>{{ historia_clinica.paciente_fecha_nacimiento }}</td>
+                                                <td>{{ historia_clinica.paciente_fecha_cita }}</td>
+                                                <td>{{ historia_clinica.paciente_fecha_reconsulta }}</td>
+                                            
+                                            <td class="noPrint" style="display: grid;">
+                                                <a class="btn btn-warning" href="/historia_clinica/ver/{{ historia_clinica.id }}">Ver</a>
+                                                <a class="btn btn-danger"  href="/historia_clinica/editar/{{ historia_clinica.id }}">Diagnostico</a>
+                                            </td>
+                                        </tr>
+                            {% endif %}    
                         {% endfor %}
                         {% else %}
                         <tr>
