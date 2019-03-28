@@ -72,7 +72,8 @@ class ListarHistoriaClinicaDiaActual(BaseHandler):
 
         for historia_clinica in historias_clinicas:
             paciente = Paciente.by_id(long(historia_clinica['paciente_id']))
-            if paciente['fechaCita'] == '2019-03-14T11:43' :
+            logging.warn(paciente['fechaCita'][0:10])
+            if paciente['fechaCita'][0:10] == datetime.datetime.now().strftime("%Y-%m-%d") :
                 respuesta.append({
                     'id': historia_clinica['id'],
                     'paciente_apellido_paterno': paciente['paterno'],
