@@ -165,7 +165,7 @@
                     {% for consulta in historia_clinica.consultas %}
                     <tr>
                         <td align="left">{{ consulta.fecha }}</td>
-                        <td align="left">{{ consulta.sintomas }}</td>
+                        <td align="left">{{ consulta.sintomas|safe }}</td>
                         <td align="left">{{ consulta.probabilidad_glaucoma }}</td>
                         <td align="left">{{ consulta.observaciones }}</td>
                         <td align="left">{{ consulta.diagnostico }}</td>
