@@ -4,10 +4,11 @@ import os
 import logging
 import webapp2
 import json
+
 from models.User import User
 
 class UserLogin(BaseHandler):
-    def post(self):
+    def post(self): 
         user = User.login(self.request.get('username'),self.request.get('pass'))
         if (user != None):
             self.login(user)
@@ -18,10 +19,27 @@ class UserLogin(BaseHandler):
 
     def get(self):
         self.init()
-        uid = self.read_secure_cookie("username")
-        if uid:
-            self.params['username'] = uid
-        self.render('users/login.html', **self.params)
+        usersCant = User.get_all();
+        if (len(usersCant) == 0):
+            user = dict(
+              nombre = "Administrador",
+              apellido =  "Administrador",
+              username = "Administrador",
+              correo = "administrador@administrador.com",
+              passw = "@Admin@",
+              tipoUsuario = "Administrador"
+            )
+            n = User.register(user['nombre'], user['apellido'], user['username'], user['correo'], user['passw'], user['tipoUsuario'])
+            n.put()  
+            uid = self.read_secure_cookie("username")
+            if uid:
+                self.params['username'] = uid
+            self.render('users/login.html', **self.params)
+        else:
+            uid = self.read_secure_cookie("username")
+            if uid:
+                self.params['username'] = uid
+            self.render('users/login.html', **self.params)
 
 class UserLogout(BaseHandler):
     def get(self):
