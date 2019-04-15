@@ -58,7 +58,8 @@
                   <td>{{ paciente.fechaReconsulta }}</td>
 
                   <td class="noPrint" style="display: inline-flex;">
-                    <a class="btn btn-cita" href="/paciente/reconsulta/{{ paciente.id }}">Cita</a>
+                    <a class="btn btn-warning" href="/paciente/cita/{{ paciente.id }}">Cita</a>
+                    <a class="btn btn-danger" href="/paciente/reconsulta/{{ paciente.id }}">Reconsulta</a>
                     <a  class="btn btn-warning fa fa-edit " href="/paciente/editar/{{ paciente.id }}"></a>
                     <a class="btn btn-danger fa fa-trash " href="/paciente/eliminar/{{ paciente.id }}"></a> 
                   </td>
