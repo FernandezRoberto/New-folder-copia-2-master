@@ -32,6 +32,7 @@ class Paciente(DictModel):
     @classmethod
     def by_id(cls, uid):
         paciente = Paciente.get_by_id(uid, parent = pacientes_key())
+        print "pacienteMod: ", paciente
         if paciente:
             return paciente.to_dict()
         else:
@@ -48,6 +49,22 @@ class Paciente(DictModel):
     @classmethod
     def get_all(cls):
         res = db.GqlQuery("SELECT * FROM Paciente where isDeleted = False")
+        response = []
+        for r in res:
+            response.append(r.to_dict())
+        return response
+
+    @classmethod
+    def get_fechaCita(cls, fechaCit):
+        res = db.GqlQuery("SELECT * FROM Paciente where isDeleted = False AND fechaCita = :1",fechaCit)
+        response = []
+        for r in res:
+            response.append(r.to_dict())
+        return response
+
+    @classmethod
+    def get_fechaReconsulta(cls, fechaReconsul):
+        res = db.GqlQuery("SELECT * FROM Paciente where isDeleted = False AND fechaReconsulta = :1",fechaReconsul)
         response = []
         for r in res:
             response.append(r.to_dict())
@@ -75,10 +92,15 @@ class Paciente(DictModel):
         paciente.put()
 
     @classmethod
-    def editPacienteReconsulta(cls, id, fechaCita, fechaReconsulta):
+    def editPacienteReconsulta(cls, id, fechaReconsulta):
+        paciente = cls.by_id_instance(id)
+        paciente.fechaReconsulta = fechaReconsulta
+        paciente.put()
+
+    @classmethod
+    def editPacienteCita(cls, id, fechaCita):
         paciente = cls.by_id_instance(id)
         paciente.fechaCita = fechaCita
-        paciente.fechaReconsulta = fechaReconsulta
         paciente.put()
 
     @classmethod
