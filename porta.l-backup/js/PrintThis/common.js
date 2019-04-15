@@ -29,7 +29,6 @@ function printTableContent(id, title) {
 		<br>
 		<br>
 		<div> Recetas: `+$("#" + id).find("#receta").val()+` </div>
-		<div> Recetas: `+$("#" + id).find("#receta").val()+` </div>
 		`);
 	$tableContent.find(".noPrint").remove();
 	$tableContent.printThis({
