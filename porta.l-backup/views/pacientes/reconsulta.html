@@ -59,12 +59,7 @@
                 <div class="col-12 col-md-10">
                   <input type="text" class="form-control" readonly name="nroDocumento" id="nroDocumento" value="{{ paciente.nroDocumento }}" >
                 </div>
-                <div class="col-12 col-md-3" style="margin-bottom: 10px;">
-                  <label for="inputName" class="control-label">Fecha y Hora de Cita: </label>
-                </div>
-                <div class="col-12 col-md-9">
-                  <input type="datetime-local" class="form-control" name="fechaCita" id="fechaCita" value="{{ paciente.fechaCita }}" >
-                </div>
+                  <input type="hidden" class="form-control" name="fechaCita" id="fechaCita" value="{{ paciente.fechaCita }}" >
                 <div class="col-12 col-md-3" style="margin-bottom: 10px;">
                   <label for="inputName" class="control-label">Fecha y Hora de Reconsulta: </label>
                 </div>
