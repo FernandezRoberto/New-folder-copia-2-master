@@ -53,10 +53,17 @@ class ReconsultaPaciente(BaseHandler):
           fechaCita = user_json.get("fechaCita", "").strip(),
           fechaReconsulta = user_json.get("fechaReconsulta","").strip()
         )
-        Paciente.editPacienteReconsulta(user['iden'], user['fechaCita'], user['fechaReconsulta'])
-        self.response.headers['Content-Type'] = 'application/json'   
-        response = { 'message': 'La cita de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
-        self.response.out.write(json.dumps(response))
+        pacientesConCita = Paciente.get_fechaCita(user['fechaReconsulta'])
+        pacientesConReconsulta = Paciente.get_fechaReconsulta(user['fechaReconsulta'])
+        if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0 ):
+          Paciente.editPacienteReconsulta(user['iden'], user['fechaReconsulta'])
+          self.response.headers['Content-Type'] = 'application/json'   
+          response = { 'message': 'La cita de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
+          self.response.out.write(json.dumps(response))
+        else:
+          self.response.headers['Content-Type'] = 'application/json'   
+          response = { 'message': 'La fecha de la reconsulta ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes'}
+          self.response.out.write(json.dumps(response))
 
     def get(self, note_id):
         self.init()
@@ -65,6 +72,39 @@ class ReconsultaPaciente(BaseHandler):
         self.params['paciente'] = paciente
         self.render('/pacientes/reconsulta.html', **self.params)
         #self.render_template('/pacientes/reconsulta.html', { 'paciente': paciente })
+
+class CitaPaciente(BaseHandler):
+    def post(self, note_id):
+        iden = int(note_id)
+        self.response.headers['Content-Type'] = 'application/json'
+        user_json = json.loads(self.request.body)
+        user = dict(
+          iden = iden,
+          nombre = user_json.get("nombre", "").strip(),
+          paterno = user_json.get("paterno", "").strip(),
+          fechaCita = user_json.get("fechaCita", "").strip(),
+          fechaReconsulta = user_json.get("fechaReconsulta", "").strip()
+        )
+        pacientesConCita = Paciente.get_fechaCita(user['fechaCita'])
+        pacientesConReconsulta = Paciente.get_fechaReconsulta(user['fechaCita'])
+        if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0):
+          Paciente.editPacienteCita(user['iden'], user['fechaCita'])
+          self.response.headers['Content-Type'] = 'application/json'   
+          response = { 'message': 'La cita de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
+          self.response.out.write(json.dumps(response))
+        else:
+          self.response.headers['Content-Type'] = 'application/json'   
+          response = { 'message': 'La fecha de la cita ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes' }
+          self.response.out.write(json.dumps(response))
+
+    def get(self, note_id):
+        self.init()
+        iden = int(note_id)
+        paciente = Paciente.by_id(iden)
+        self.params['paciente'] = paciente
+        self.render('/pacientes/cita.html', **self.params)
+        #self.render_template('/pacientes/reconsulta.html', { 'paciente': paciente })
+
 
 class EditarPaciente(BaseHandler):
     def post(self, note_id):
