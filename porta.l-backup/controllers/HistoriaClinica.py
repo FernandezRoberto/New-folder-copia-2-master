@@ -45,10 +45,10 @@ class ListarHistoriaClinica(BaseHandler):
         self.init()
         respuesta = []
         historias_clinicas = HistoriaClinica.get_all()
-
+        print "hisssssssssssssssssssssssss: ", historias_clinicas
         for historia_clinica in historias_clinicas:
             paciente = Paciente.by_id(long(historia_clinica['paciente_id']))
-
+            print "paciente: ", paciente
             respuesta.append({
                 'id': historia_clinica['id'],
                 'paciente_apellido_paterno': paciente['paterno'],
