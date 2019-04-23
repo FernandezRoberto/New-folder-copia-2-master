@@ -34,6 +34,8 @@
                 <thead class="card-header">
                   <tr>
                     <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Nombre</th>
+                    <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Concentracion</th>
+                    <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Docis</th>
                     <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col" class="noPrint">Acciones</th>
                   </tr>
                 </thead>
@@ -42,6 +44,8 @@
                     {% for medicamento in medicamentos %}
                       <tr>
                         <td>{{ medicamento.nombre }}</td>
+                        <td>{{ medicamento.concentracion }}</td>
+                        <td>{{ medicamento.docis }}</td>
                         <td class="noPrint">
                           <a class="btn btn-warning" href="/medicamento/editarMedicamento/{{ medicamento.id }}">Modificar</a>
                           <a class="btn btn-danger"  href="/medicamento/borrarMedicamento/{{ medicamento.id }}">Eliminar</a>
