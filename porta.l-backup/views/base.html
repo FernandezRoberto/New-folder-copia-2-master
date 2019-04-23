@@ -44,6 +44,9 @@
                 {% if tipo == "Administradora" or tipo == "Ingeniero" %}
                   <li class="nav-item"><a href="/conocimientos/crearConocimiento">Adquisicion Conocimiento</a></li>
                 {% endif %}
+                {% if tipo == "Administrador" or tipo == "Secretaria" or tipo == "Medico" %}
+                  <li><a href="/medicamento/listarMedicamento">Administrar Medicamentos</a></li>
+                {% endif %}
                 {% if tipo == "Administrador" or tipo == "Secretaria" %}
                   <li><a href="/paciente/mostrarPacientes">Administrar Pacientes</a></li>
                 {% endif %}
