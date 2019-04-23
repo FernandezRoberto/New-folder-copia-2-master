@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+            <div class="hamburger-menu d-lg-none">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Medicamentos</h1>
+        <div class="breadcrumbs">
+          <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+            <li><a href="/medicamento/crearMedicamento">Registrar Medicamento</a></li>
+            <li><a href="/medicamento/listarMedicamento">Listar Medicamento</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+    <img class="header-img" src="/images/contact-bg.png" alt="">
+  </header>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="card card-register mx-auto mt-5">
+            <center>
+              <table class="table" id="buscador" style="border-bottom: 5px solid #4fa9e3;" >
+                <thead class="card-header">
+                  <tr>
+                    <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Nombre</th>
+                    <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col" class="noPrint">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="card-body container" >
+                  {% if medicamentos %}
+                    {% for medicamento in medicamentos %}
+                      <tr>
+                        <td>{{ medicamento.nombre }}</td>
+                        <td class="noPrint">
+                          <a class="btn btn-warning" href="/medicamento/editarMedicamento/{{ medicamento.id }}">Modificar</a>
+                          <a class="btn btn-danger"  href="/medicamento/borrarMedicamento/{{ medicamento.id }}">Eliminar</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% else %}
+                    <tr>
+                      <td colspan="9" class="text-center">No se encontraron resultados</td>
+                    </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </center>
+          </div>
+      </div>
+    </div>
+  </div>
+  <script src="/js/buscador.js"></script>
+{% endblock %}
