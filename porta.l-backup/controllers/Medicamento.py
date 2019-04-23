@@ -63,4 +63,4 @@ class EliminarMedicamento(BaseHandler):
         self.init()
         iden = int(note_id)
         Medicamento.deleteMedicamento(iden)
-        return webapp2.redirect('/medicamento/crearMedicamento')
+        return webapp2.redirect('/medicamento/listarMedicamento')
