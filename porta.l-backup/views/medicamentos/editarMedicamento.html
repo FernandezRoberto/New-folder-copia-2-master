@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="hamburger-menu d-lg-none">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Medicamentos</h1>
+        <div class="breadcrumbs">
+          <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+            <li><a href="/medicamento/crearMedicamento">Registrar Medicamento</a></li>
+            <li><a href="/medicamento/listarMedicamento">Listar Medicamento</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img class="header-img" src="/images/contact-bg.png" alt="">
+  </header>
+  <link rel="stylesheet" href="/stylesheets/app/estilos.css">
+  <div class="container">
+    {% if mediacmento != None %}
+    <div class="col-md-12">
+      <div class="container">
+        <div class="card card-register mx-auto mt-5">
+          <div class="card-header letra color-background" style="background-color: rgb(85, 142, 212);">Editar Medicamento</div>
+          <div class="card-body">
+            <form class="form-horizontal ajax-form" role="form" url="/medicamento/editarMedicamento/{{ medicamento.id }}" method="post" id="editMedicamentoForm">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputUsername" class="control-label">Nombre: </label>
+                  </div>
+                  <div class="col-12 col-md-10">
+                    <input type="text" class="form-control" name="nombre" id="nombre"
+                    value="{{ medicamento.nombre }}" >
+                  </div>
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputUsername" class="control-label">Concentracion: </label>
+                  </div>
+                  <div class="col-12 col-md-10">
+                    <input type="text" class="form-control" name="concentracion" id="concentracion"
+                    value="{{ medicamento.concentracion }}" >
+                  </div>
+                  <div class="col-12 col-md-2" style="margin-bottom: 10px;">
+                    <label for="inputUsername" class="control-label">Docis: </label>
+                  </div>
+                  <div class="col-12 col-md-10">
+                    <input type="text" class="form-control" name="docis" id="docis"
+                    value="{{ medicamento.docis }}" >
+                  </div>
+                </div>
+              </div>
+              <div class="form-group text-center">
+                <button type="submit" value="submit" class="btn btn-warning">Actualizar Medicamento</button>
+              </div>
+            </form>
+            <br>
+          </div>
+        </div>
+      </div>
+      <script src="/js/app/common/editMedicamentoBox.js"></script>
+    </div>
+    {% else %}
+    <div class="col-md-12">    
+      <div class="container" style="margin-top: 50px;">
+        <div class="card card-register mx-auto mt-5">
+          <div class="card-header letra color-background">
+            Lo sentimos
+          </div>
+          <div class="card-body">
+            No se encontro el producto que esta buscando
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+{% endblock %}
