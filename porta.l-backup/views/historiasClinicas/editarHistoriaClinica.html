@@ -134,7 +134,7 @@
     }
 
     $(document).ready(function() {
-        $('#dlgPrediccion').dialog({title: 'Predicción y Registro', width: 600, height: 400, modal: true, autoOpen: false});
+        $('#dlgPrediccion').dialog({title: 'Predicción y Registro', width: 696, height: 720, modal: true, autoOpen: false});
         $('.ui-button').button();
     });
 </script>
@@ -317,14 +317,6 @@
                             <textarea id="diagnostico" name="diagnostico" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.diagnostico }}"></textarea>
                         </td>
                     </tr>
-                    <tr >
-                        <td align="left">
-                            <label for="receta" class="control-label">Receta: </label>
-                        </td>
-                        <td colspan="3" align="left">
-                            <textarea id="receta" name="receta" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.receta }}"></textarea>
-                        </td>
-                    </tr>
                 </table>
 
             </div>
@@ -342,7 +334,7 @@
 <div id="dlgPrediccion">
     <input type="hidden" id="hidPrediccion" />
     <input type="hidden" id="hidProbabilidad" />
-    <table width="500px">
+    <table width="500px" class="table">
         <tr>
             <td align="left">
                 <label class="control-label">Predicción:</label>
@@ -372,10 +364,35 @@
             </td>
         </tr>
         <tr>
+            <td align="left">
+                <label for="prediccionCorrecta" class="control-label">Agregar Receta</label>
+            </td>
+            <td align="center">
+                <select name="medicamento" id="medicamento">
+                    <option>Medicamento ; Concentracion ; Docis</option>
+                    {% if medicamentos %}
+                        {% for medicamento in medicamentos %}
+                            <option>{{ medicamento.nombre}} , {{ medicamento.concentracion}} , {{ medicamento.docis}}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </td>
+            <td align="center">
+                <input style="line-height: 1;" class="btn btn-warning" type="button" onclick="agregarReceta()" value="Agregar" />
+            </td>
+        </tr>
+        <tr >
+            <td colspan="3" align="left">
+                <textarea readonly="" id="receta" name="receta" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.receta }}"></textarea>
+             </td>
+        </tr>
+        <tr>
+            <td></td>
             <td align="center">
                 <input class="ui-button" type="button" onclick="registrarConsulta()" value="Registrar Consulta" />
             </td>
         </tr>
     </table>
+    <script src="/js/app/common/agregarReceta.js"></script>
 </div>
 {% endblock %}
