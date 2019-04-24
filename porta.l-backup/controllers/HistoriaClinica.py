@@ -14,6 +14,7 @@ from google.appengine.ext import db
 from Inferencia import inference_url
 
 from models import Paciente
+from models.Medicamento import Medicamento
 from models.HistoriaClinica import HistoriaClinica
 from models.Consulta import Consulta
 
@@ -203,10 +204,13 @@ class VerHistoriaClinica(BaseHandler):
 class EditarHistoriaClinica(BaseHandler):
     def get(self, historia_clinica_id):
         self.init()
+        medicamentos = Medicamento.get_all();
+        
         historia_clinica = obtener_historia_clinica_completa(historia_clinica_id)
         ultima_consulta = Consulta.get_last_by_historia_clinica_id(historia_clinica_id)
         historia_clinica['ultima_consulta'] = ultima_consulta if ultima_consulta else {}
         self.params['historia_clinica'] = historia_clinica
+        self.params['medicamentos'] = medicamentos
         self.render('historiasClinicas/editarHistoriaClinica.html', **self.params)
         #self.render_template('historiasClinicas/editarHistoriaClinica.html', {'historia_clinica': historia_clinica},**self.params)
 
