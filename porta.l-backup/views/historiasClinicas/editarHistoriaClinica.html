@@ -249,7 +249,7 @@
             <div class="form-group text-center">
                 <div class="card-header letra color-background" style="background-color: rgb(85, 142, 212); text-align: center;
     ">Datos de la Consulta</div>
-                <table id="recetario" class="table" width="100%">
+                <table id="" class="table" width="100%">
                     <tr>
                         <td align="left">
                             <input type="checkbox" name="dolorOcularSevero" id="dolorOcularSevero" {% if historia_clinica.ultima_consulta.dolor_ocular_severo == "True" %}checked="checked"{% endif %} />
@@ -323,10 +323,6 @@
             <div class="form-group text-center">
                 <input type="button" class="btn btn-warning" onclick="mostrarDialogoPrediccion()" value="Realizar Predicción y Registrar" />
             </div>
-            <div style="margin-top: 20px;">
-      <button class="btn btn-primary col-md-3" onclick="printTableContent('recetario', 'Receta')"> Imprimir Receta
-      </button>
-    </div>
         </div>
     </div>
 </div>
@@ -334,7 +330,7 @@
 <div id="dlgPrediccion">
     <input type="hidden" id="hidPrediccion" />
     <input type="hidden" id="hidProbabilidad" />
-    <table width="500px" class="table">
+    <table id="recetario" width="500px" class="table">
         <tr>
             <td align="left">
                 <label class="control-label">Predicción:</label>
@@ -356,19 +352,19 @@
                 <label for="prediccionCorrecta" class="control-label">Esta predicción es correcta</label>
             </td>
             <td>
-                <select name="prediccionCorrecta" id="prediccionCorrecta">
+                <select name="prediccionCorrecta" id="prediccionCorrecta" onchange="changeFormView(this);">
                     <option value="yes">Sí</option>
                     <option value="no">No</option>
                     <option value="unknown">No lo sé</option>
                 </select>
             </td>
         </tr>
-        <tr>
+        <tr id="medica">
             <td align="left">
                 <label for="prediccionCorrecta" class="control-label">Agregar Receta</label>
             </td>
             <td align="center">
-                <select name="medicamento" id="medicamento">
+                <select name="medicamento" id="medicamento" >
                     <option>Medicamento ; Concentracion ; Docis</option>
                     {% if medicamentos %}
                         {% for medicamento in medicamentos %}
@@ -377,22 +373,27 @@
                     {% endif %}
                 </select>
             </td>
-            <td align="center">
-                <input style="line-height: 1;" class="btn btn-warning" type="button" onclick="agregarReceta()" value="Agregar" />
-            </td>
+          <td align="center">
+            <input style="line-height: 1;" class="btn btn-warning" type="button" onclick="agregarReceta()" value="Agregar" />
+          </td>
         </tr>
-        <tr >
-            <td colspan="3" align="left">
-                <textarea readonly="" id="receta" name="receta" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.receta }}"></textarea>
-             </td>
+        <tr id="recetas">
+          <td colspan="3" align="left">
+            <textarea readonly="" id="receta" name="receta" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.receta }}"></textarea>
+          </td>
         </tr>
         <tr>
-            <td></td>
-            <td align="center">
-                <input class="ui-button" type="button" onclick="registrarConsulta()" value="Registrar Consulta" />
-            </td>
+          <td></td>
+          <td align="center">
+            <input class="ui-button" type="button" onclick="registrarConsulta()" value="Registrar Consulta" />
+          </td>
         </tr>
+        <script src="/js/app/common/controlarReceta.js"></script>
     </table>
+    <div id="imprimirRecetas" style="margin-top: 20px;">
+      <button class="btn btn-primary col-md-3" onclick="printTableContent('recetario', 'Receta')"> Imprimir Receta </button>
+    </div>
     <script src="/js/app/common/agregarReceta.js"></script>
+    
 </div>
 {% endblock %}
