@@ -38,7 +38,7 @@
                   <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Apellido(s)</th>
                   <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Usuario</th>
                   <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Correo Electronico</th>
-                  <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Fecha de Creacion</th>
+                  <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Fecha de Creacion[0:16]</th>
                   <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col">Rol</th>
                   <th class="letra color-background" style="text-align: center; background: #4fa9e3;" scope="col" class="noPrint">Acciones</th>
                 </tr>
@@ -51,7 +51,7 @@
                   <td>{{ user.last_name }}</td>
                   <td>{{ user.username }}</td>
                   <td>{{ user.email }}</td>
-                  <td>{{ user.created }}</td>
+                  <td>{{ user.created[0:16] }}</td>
                   <td>{{ user.tipoUsuario }}</td>
                   <td class="noPrint">
                     <a class="btn btn-warning fa fa-edit" href="/user/edit/{{ user.id }}"></a>
