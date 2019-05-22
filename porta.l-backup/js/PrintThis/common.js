@@ -33,7 +33,7 @@ function printTableContent(id, title) {
 	$tableContent.find(".noPrint").remove();
 	$tableContent.printThis({
 	    importCSS: true,
-	    loadCSS: "",
+	    loadCSS: "http://localhost:8888/historia_clinica/editar/6192449487634432",
 	    importCSS: true,
         importStyle: true,
         margins: "minimum",
