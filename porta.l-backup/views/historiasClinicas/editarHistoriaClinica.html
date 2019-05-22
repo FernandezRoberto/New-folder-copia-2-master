@@ -365,11 +365,13 @@
             </td>
             <td align="center">
                 <select name="medicamento" id="medicamento" >
-                    <option>Medicamento ; Concentracion ; Docis</option>
                     {% if medicamentos %}
                         {% for medicamento in medicamentos %}
-                            <option>{{ medicamento.nombre}} , {{ medicamento.concentracion}} , {{ medicamento.docis}}</option>
+                            <optgroup label="Medicamento ; Concentracion ; Docis">
+                            <option>{{medicamento.nombre}} , {{ medicamento.concentracion}} , {{ medicamento.docis}}</option>
                         {% endfor %}
+                    {%else%}
+                    <option>No tiene medicamentos registrados</option>
                     {% endif %}
                 </select>
             </td>
