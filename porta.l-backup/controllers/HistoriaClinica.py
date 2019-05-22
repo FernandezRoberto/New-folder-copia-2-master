@@ -32,8 +32,8 @@ def obtener_historia_clinica_completa(historia_clinica_id):
     historia_clinica['paciente_tipo_documento'] = paciente['tipoDocumento']
     historia_clinica['paciente_estado_civil'] = paciente['estadoCivil']
     historia_clinica['paciente_ocupacion'] = paciente['ocupacion']
-    historia_clinica['paciente_fecha_reconsulta'] = paciente['fechaReconsulta']
-    historia_clinica['paciente_fecha_cita'] = paciente['fechaCita']
+    historia_clinica['paciente_fecha_reconsulta'] = paciente['fechaReconsulta'][0:16]
+    historia_clinica['paciente_fecha_cita'] = paciente['fechaCita'][0:16]
     historia_clinica['paciente_is_deleted'] = paciente['isDeleted']
 
     historia_clinica['consultas'] = Consulta.get_all_by_historia_clinica_id(long(historia_clinica_id))
@@ -56,8 +56,8 @@ class ListarHistoriaClinica(BaseHandler):
                 'paciente_apellido_materno': paciente['materno'],
                 'paciente_nombre': paciente['nombre'],
                 'paciente_fecha_nacimiento': paciente['fechaNacimiento'],
-                'paciente_fecha_reconsulta': paciente['fechaReconsulta'],
-                'paciente_fecha_cita': paciente['fechaCita'],
+                'paciente_fecha_reconsulta': paciente['fechaReconsulta'][0:16],
+                'paciente_fecha_cita': paciente['fechaCita'][0:16],
                 'paciente_is_deleted': paciente['isDeleted']
             })
         self.params['historias_clinicas'] = respuesta
@@ -81,8 +81,19 @@ class ListarHistoriaClinicaDiaActual(BaseHandler):
                     'paciente_apellido_materno': paciente['materno'],
                     'paciente_nombre': paciente['nombre'],
                     'paciente_fecha_nacimiento': paciente['fechaNacimiento'],
-                    'paciente_fecha_reconsulta': paciente['fechaReconsulta'],
-                    'paciente_fecha_cita': paciente['fechaCita'],
+                    'paciente_fecha_reconsulta': paciente['fechaReconsulta'][0:16],
+                    'paciente_fecha_cita': paciente['fechaCita'][0:16],
+                    'paciente_is_deleted': paciente['isDeleted']
+                })
+            if paciente['fechaReconsulta'][0:10] == datetime.datetime.now().strftime("%Y-%m-%d") :
+                respuesta.append({
+                    'id': historia_clinica['id'],
+                    'paciente_apellido_paterno': paciente['paterno'],
+                    'paciente_apellido_materno': paciente['materno'],
+                    'paciente_nombre': paciente['nombre'],
+                    'paciente_fecha_nacimiento': paciente['fechaNacimiento'],
+                    'paciente_fecha_reconsulta': paciente['fechaReconsulta'][0:16],
+                    'paciente_fecha_cita': paciente['fechaCita'][0:16],
                     'paciente_is_deleted': paciente['isDeleted']
                 })
         self.params['historias_clinicas'] = respuesta
@@ -185,7 +196,7 @@ class VerHistoriaClinica(BaseHandler):
             sintomas += '</ul>'
 
             detalle = {
-                'fecha': consulta['fecha'],
+                'fecha': consulta['fecha'][0:16],
                 'sintomas': sintomas,
                 'probabilidad_glaucoma': str(float(consulta['probabilidad_glaucoma']) * 100) + '%',
                 'observaciones': consulta['observaciones'],
