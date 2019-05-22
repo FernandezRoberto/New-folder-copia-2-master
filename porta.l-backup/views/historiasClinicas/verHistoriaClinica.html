@@ -169,7 +169,7 @@
                         <td align="left">{{ consulta.probabilidad_glaucoma }}</td>
                         <td align="left">{{ consulta.observaciones }}</td>
                         <td align="left">{{ consulta.diagnostico }}</td>
-                        <td align="left">{{ consulta.receta }}</td>
+                        <td align="left">{{ consulta.receta|safe }}</td>
                     </tr>
                     {% endfor %}
                     {% else %}
