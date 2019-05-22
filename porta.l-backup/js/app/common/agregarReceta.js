@@ -5,6 +5,6 @@ function agregarReceta() {
             // assign multiple text values
             var medicamento = $("#medicamento").val();
 
-            var resultado = receta.value+"º"+medicamento+"\n";
+            var resultado = receta.value+medicamento+"\n";
             receta.value = resultado;
         }
