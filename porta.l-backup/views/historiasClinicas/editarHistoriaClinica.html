@@ -359,9 +359,24 @@
                 </select>
             </td>
         </tr>
+        <tr id="tratamiento">
+            <td align="left">
+                <label for="tipoTratamiento" class="control-label">Tipo De Tratamiento</label>
+            </td>
+            <td align="center">
+                <select name="tipoTratamiento" id="tipoTratamiento" onchange="getval(this);">
+                    <option>Medicamentos</option>
+                    <option>Cirugìa</option>
+                    <option>Cirugìa Làser</option>
+                </select>
+            </td>
+            <td class="agregarTratamiento" align="center" style="display: none">
+                <input style="line-height: 1;" class="btn btn-warning" type="button" onclick="agregarTratamientos()" value="Agregar" />
+            </td>
+        </tr>
         <tr id="medica">
             <td align="left">
-                <label for="prediccionCorrecta" class="control-label">Agregar Receta</label>
+                <label for="medicamento" class="control-label">Agregar Receta</label>
             </td>
             <td align="center">
                 <select name="medicamento" id="medicamento" >
