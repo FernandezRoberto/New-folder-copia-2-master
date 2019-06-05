@@ -7,12 +7,14 @@ function changeFormView()
   {
     $("#medica").hide();
     $("#recetas").hide();
+    $("#tratamiento").hide();
     $("#imprimirRecetas").hide();
   }
   else
   {
     $("#medica").show();
     $("#recetas").show();
+    $("#tratamiento").show();
     $("#imprimirRecetas").show();
   }
 }
