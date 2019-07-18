@@ -47,6 +47,22 @@ class User(DictModel):
         return response
 
     @classmethod
+    def get_username(cls, username):
+        res = db.GqlQuery("SELECT * FROM User where isDeleted = False AND username = :1",username)
+        response = []
+        for r in res:
+            response.append(r.to_dict())
+        return response
+
+    @classmethod
+    def get_email(cls, email):
+        res = db.GqlQuery("SELECT * FROM User where isDeleted = False AND email = :1",email)
+        response = []
+        for r in res:
+            response.append(r.to_dict())
+        return response
+
+    @classmethod
     def by_username(cls, username):
         u = User.all().filter('username =', username).get()
         return u
