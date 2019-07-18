@@ -63,8 +63,24 @@ class Paciente(DictModel):
         return response
 
     @classmethod
+    def get_pacientess(cls, carnet):
+        res = db.GqlQuery("SELECT * FROM Paciente where isDeleted = False AND nroDocumento = :1",carnet)
+        response = []
+        for r in res:
+            response.append(r.to_dict())
+        return response
+
+    @classmethod
     def get_fechaReconsulta(cls, fechaReconsul):
         res = db.GqlQuery("SELECT * FROM Paciente where isDeleted = False AND fechaReconsulta = :1",fechaReconsul)
+        response = []
+        for r in res:
+            response.append(r.to_dict())
+        return response
+
+    @classmethod
+    def get_nroDocumento(cls, nroDoc):
+        res = db.GqlQuery("SELECT * FROM Paciente where isDeleted = False AND nroDocumento = :1",nroDoc)
         response = []
         for r in res:
             response.append(r.to_dict())
