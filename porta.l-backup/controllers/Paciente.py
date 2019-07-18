@@ -26,13 +26,19 @@ class CrearPaciente(BaseHandler):
             self.request.get('ocupacion'),
             self.request.get('fechaCita')
         ) 
-        n.put()
-        self.response.headers['Content-Type'] = 'application/json'   
-        obj = {
-          'url': '/paciente/mostrarPacientes', 
-          'message':'Paciente registrado con exito',
-        } 
-        self.response.out.write(json.dumps(obj))    
+        pacientesValido = Paciente.get_nroDocumento(user['nroDocumento'])
+        if (len(pacientesValido) == 0 ):
+          n.put()
+          self.response.headers['Content-Type'] = 'application/json'   
+          obj = {
+            'url': '/paciente/mostrarPacientes', 
+            'message':'Paciente registrado con exito',
+          } 
+          self.response.out.write(json.dumps(obj))
+        else:    
+          self.response.headers['Content-Type'] = 'application/json'   
+          response = { 'message': 'El Usuario con '+user['tipoDocumento']+':'+user['nroDocumento']+' ya existe, ingrese otro usuario', 'redirect_url': '/paciente/registrarPacientes'}
+          self.response.out.write(json.dumps(response))
 
 class MostrarPacientes(BaseHandler):
     def get(self):
