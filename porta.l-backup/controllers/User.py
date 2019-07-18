@@ -58,18 +58,26 @@ class CreateUser(BaseHandler):
           passw = user_json.get("pass", "").strip(),
           tipoUsuario = user_json.get("tipoUsuario","").strip()
         )
-        n = User.register(user['nombre'], user['apellido'], user['username'], user['correo'], user['passw'], user['tipoUsuario'])
-        n.put()
-        #self.render('index.html', **self.params)
-        self.response.headers['Content-Type'] = 'application/json'   
-        #obj = {
-         # 'url': '/user/show', 
-          #'message': 'Usuario registrado con exito',
-        #} 
-        #self.response.status = 200
-        response = { 'message': user['tipoUsuario'] + ' registrado con exito', 'redirect_url': '/user/show' }
-        self.response.out.write(json.dumps(response))
-        #return webapp2.redirect('/user/login')
+
+        usernameValid = User.get_username(user['username']);
+        emailValid = User.get_email(user['correo']);
+        if (len(usernameValid) == 0 and len(emailValid) == 0):
+          n = User.register(user['nombre'], user['apellido'], user['username'], user['correo'], user['passw'], user['tipoUsuario'])
+          n.put()
+          #self.render('index.html', **self.params)
+          self.response.headers['Content-Type'] = 'application/json'   
+          #obj = {
+           # 'url': '/user/show', 
+            #'message': 'Usuario registrado con exito',
+          #} 
+          #self.response.status = 200
+          response = { 'message': user['nombre']+' '+user['apellido']+ ' registrado con exito', 'redirect_url': '/user/show' }
+          self.response.out.write(json.dumps(response))
+          #return webapp2.redirect('/user/login')
+        else:
+          self.response.headers['Content-Type'] = 'application/json'   
+          response = { 'message': 'El Usuario: '+user['nombre']+' '+user['apellido']+' ya existe, ingrese otro usuario y/o correo', 'redirect_url': '/user/register'}
+          self.response.out.write(json.dumps(response))
 
     def get(self):
         self.init()
