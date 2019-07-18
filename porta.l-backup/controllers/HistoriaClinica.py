@@ -122,44 +122,55 @@ class CrearHistoriaClinica(BaseHandler):
           estadoCivil = user_json.get("estadoCivil", "").strip(),
           ocupacion = user_json.get("ocupacion","").strip()
         )
-        n = Paciente.register(paciente['paterno'], paciente['materno'], paciente['nombre'], paciente['fechaNacimiento'], paciente['direccion'], paciente['tipoDocumento'], paciente['nroDocumento'], paciente['estadoCivil'], paciente['ocupacion'])
-        n.put()
+
+        
+        pacientesValido = db.GqlQuery("SELECT * FROM Paciente where isDeleted = False AND nroDocumento = :1",paciente['nroDocumento'])
+        if (pacientesValido==""):
+            n = Paciente.register(paciente['paterno'], paciente['materno'], paciente['nombre'], paciente['fechaNacimiento'], paciente['direccion'], paciente['tipoDocumento'], paciente['nroDocumento'], paciente['estadoCivil'], paciente['ocupacion'])
+            n.put()
+            #historia_json = json.loads(self.request.body)
+
+            #paciente = Paciente.register(historia_json['paterno'],
+              #                historia_json['materno'],
+              #                historia_json['nombre'],
+               #               historia_json['fechaNacimiento'],
+              #                historia_json['direccion'],
+              #                historia_json['tipoDocumento'],
+               #               historia_json['nroDocumento'],
+               #               historia_json['estadoCivil'],
+               #               historia_json['ocupacion'])
+
+            #paciente.put()
+
+            historia_clinica = HistoriaClinica()
+            historia_clinica.fecha_apertura = datetime.date.today()
+            historia_clinica.observaciones = user_json.get("observaciones","").strip() #historia_json['observaciones']
+
+            historia_clinica.afroamericano = bool(user_json.get("afroamericano","").strip()) #bool(historia_json['afroamericano'])
+            historia_clinica.antecedentes_miopia = bool(user_json.get("antecedentes_miopia","").strip()) #bool(historia_json['antecedentes_miopia'])
+            historia_clinica.diabetes = bool(user_json.get("diabetes","").strip()) #bool(historia_json['diabetes'])
+            historia_clinica.paciente_id = n.key().id()
+
+            historia_clinica.save_historia_clinica()
+
+            self.response.headers['Content-Type'] = 'application/json'   
+          
+            response = { 'message': user_json.get("nombre", "").strip() + ' fue registrado con exito', 'redirect_url': '/paciente/mostrarPacientes' }
+            self.response.out.write(json.dumps(response))
+
+            #self.response.write('{"response": "ok", "historia_clinica_id": "%s"}' % historia_clinica.key().id())
+        else:    
+            self.response.headers['Content-Type'] = 'application/json'   
+            response = { 'message': 'El Paciente con '+paciente['tipoDocumento']+':'+paciente['nroDocumento']+' ya existe, ingrese otro paciente', 'redirect_url': '/historia_clinica/crear'}
+            self.response.out.write(json.dumps(response))
+
+
+        
 
         
 
 
-        #historia_json = json.loads(self.request.body)
-
-        #paciente = Paciente.register(historia_json['paterno'],
-          #                historia_json['materno'],
-          #                historia_json['nombre'],
-           #               historia_json['fechaNacimiento'],
-          #                historia_json['direccion'],
-          #                historia_json['tipoDocumento'],
-           #               historia_json['nroDocumento'],
-           #               historia_json['estadoCivil'],
-           #               historia_json['ocupacion'])
-
-        #paciente.put()
-
-        historia_clinica = HistoriaClinica()
-        historia_clinica.fecha_apertura = datetime.date.today()
-        historia_clinica.observaciones = user_json.get("observaciones","").strip() #historia_json['observaciones']
-
-        historia_clinica.afroamericano = bool(user_json.get("afroamericano","").strip()) #bool(historia_json['afroamericano'])
-        historia_clinica.antecedentes_miopia = bool(user_json.get("antecedentes_miopia","").strip()) #bool(historia_json['antecedentes_miopia'])
-        historia_clinica.diabetes = bool(user_json.get("diabetes","").strip()) #bool(historia_json['diabetes'])
-        historia_clinica.paciente_id = n.key().id()
-
-        historia_clinica.save_historia_clinica()
-
-        self.response.headers['Content-Type'] = 'application/json'   
-      
-        response = { 'message': user_json.get("nombre", "").strip() + ' fue registrado con exito', 'redirect_url': '/paciente/mostrarPacientes' }
-        self.response.out.write(json.dumps(response))
-
-        #self.response.write('{"response": "ok", "historia_clinica_id": "%s"}' % historia_clinica.key().id())
-
+        
 
 class VerHistoriaClinica(BaseHandler):
     def get(self, historia_clinica_id):
