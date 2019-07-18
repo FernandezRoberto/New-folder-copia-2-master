@@ -117,7 +117,7 @@
             }),
             success: function(result) {
                 if (result.prediction == 1) {
-                    $('#lblPrediccionTexto').html('Los pronósticos indican que el paciente puede tener glaucoma.');
+                    $('#lblPrediccionTexto').html('Los pronósticos indican que el paciente puede tener glaucoma. Se sugiere realizar prueba de campo visual.');
                 } else {
                     $('#lblPrediccionTexto').html('Los pronósticos indican que el paciente no tiene glaucoma.');
                 }
@@ -364,15 +364,15 @@
                 <label for="tipoTratamiento" class="control-label">Tipo De Tratamiento</label>
             </td>
             <td align="center">
-                <select name="tipoTratamiento" id="tipoTratamiento" onchange="getval(this);">
+                <select name="tipoTratamiento" id="tipoTratamiento" onchange="ocualtarVista(this);">
                     <option>Medicamentos</option>
                     <option>Cirugìa</option>
                     <option>Cirugìa Làser</option>
                 </select>
             </td>
-            <td class="agregarTratamiento" align="center" style="display: none">
+            <!--td class="agregarTratamiento" align="center" style="display: none">
                 <input style="line-height: 1;" class="btn btn-warning" type="button" onclick="agregarTratamientos()" value="Agregar" />
-            </td>
+            </td-->
         </tr>
         <tr id="medica">
             <td align="left">
@@ -381,8 +381,8 @@
             <td align="center">
                 <select name="medicamento" id="medicamento" >
                     {% if medicamentos %}
+                    <optgroup label="Medicamento ; Concentracion ; Docis">
                         {% for medicamento in medicamentos %}
-                            <optgroup label="Medicamento ; Concentracion ; Docis">
                             <option>{{medicamento.nombre}} , {{ medicamento.concentracion}} , {{ medicamento.docis}}</option>
                         {% endfor %}
                     {%else%}
@@ -396,7 +396,7 @@
         </tr>
         <tr id="recetas">
           <td colspan="3" align="left">
-            <textarea readonly="" id="receta" name="receta" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.receta }}"></textarea>
+            <textarea id="receta" name="receta" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.receta }}"></textarea>
           </td>
         </tr>
         <tr>
