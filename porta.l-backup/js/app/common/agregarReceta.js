@@ -7,25 +7,27 @@ function agregarReceta() {
     receta.value = resultado;
 }
 
-function agregarTratamientos() {
+/*function agregarTratamientos() {
 	var valor = document.getElementById("tipoTratamiento");
     var texto = valor.options[valor.selectedIndex].text;
     var resultado = texto;
     receta.value = resultado;
-}
+}*/
 
-function getval(sel)
+function ocualtarVista(sel)
 {
   if(sel.value==='Medicamentos')
   {
     $(".agregarTratamiento").hide();
     $("#medica").show();
     $("#imprimirRecetas").show();
+    $("#recetas").show();
   }
   else
   {
     $(".agregarTratamiento").show();
     $("#medica").hide();
     $("#imprimirRecetas").hide();
+    $("#recetas").hide();
   }
 }
