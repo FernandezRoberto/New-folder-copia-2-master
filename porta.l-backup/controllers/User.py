@@ -59,9 +59,13 @@ class CreateUser(BaseHandler):
           tipoUsuario = user_json.get("tipoUsuario","").strip()
         )
 
-        usernameValid = User.get_username(user['username']);
-        emailValid = User.get_email(user['correo']);
-        if (len(usernameValid) == 0 and len(emailValid) == 0):
+        usernameValid = User.by_username(user['username']);
+        emailValid = User.by_email(user['correo']);
+        print( User.all().filter('username =', user['username']).get())
+        print(user['username'])
+        print(user['correo'])
+        print(emailValid)
+        if (usernameValid is None and emailValid is None):
           n = User.register(user['nombre'], user['apellido'], user['username'], user['correo'], user['passw'], user['tipoUsuario'])
           n.put()
           #self.render('index.html', **self.params)
