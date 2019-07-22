@@ -125,7 +125,7 @@ class CrearHistoriaClinica(BaseHandler):
 
         
         pacientesValido = db.GqlQuery("SELECT * FROM Paciente where isDeleted = False AND nroDocumento = :1",paciente['nroDocumento'])
-        print(pacientesValido.nroDocumento)
+        print(pacientesValido)
 
         if (pacientesValido):
             n = Paciente.register(paciente['paterno'], paciente['materno'], paciente['nombre'], paciente['fechaNacimiento'], paciente['direccion'], paciente['tipoDocumento'], paciente['nroDocumento'], paciente['estadoCivil'], paciente['ocupacion'])
