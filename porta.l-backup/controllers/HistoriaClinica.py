@@ -125,7 +125,9 @@ class CrearHistoriaClinica(BaseHandler):
 
         
         pacientesValido = db.GqlQuery("SELECT * FROM Paciente where isDeleted = False AND nroDocumento = :1",paciente['nroDocumento'])
-        if (pacientesValido==""):
+        print(pacientesValido.nroDocumento)
+
+        if (pacientesValido):
             n = Paciente.register(paciente['paterno'], paciente['materno'], paciente['nombre'], paciente['fechaNacimiento'], paciente['direccion'], paciente['tipoDocumento'], paciente['nroDocumento'], paciente['estadoCivil'], paciente['ocupacion'])
             n.put()
             #historia_json = json.loads(self.request.body)
