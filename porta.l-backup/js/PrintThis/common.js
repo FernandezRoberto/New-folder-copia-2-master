@@ -25,6 +25,24 @@ function printData() {
 }
 
 function printTableContent(id, title) {
+	var $tableContent = $('<br><br>' + $("#" + id)[0].outerHTML+`
+		<hr>
+		<div> Receta: `+$("#" + id).find("#receta").val()+` </div>
+		<br>
+		<hr>
+		`);
+	$tableContent.find(".noPrint").remove();
+	$tableContent.printThis({
+	    importCSS: true,
+	    loadCSS: "http://localhost:8888/historia_clinica/editar/6192449487634432",
+	    importCSS: true,
+        importStyle: true,
+        margins: "minimum",
+	    header: "<h1 class='text-center' style='margin-top:20px;'>" + title + "</h1>"
+	});
+}
+
+function printTableContentssss(id, title) {
 	var $tableContent = $(`
 		<br>
 		<br>
