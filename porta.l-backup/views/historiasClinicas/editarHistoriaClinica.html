@@ -309,14 +309,14 @@
                             <textarea id="observacionesConsulta" name="observacionesConsulta" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.observaciones }}"></textarea>
                         </td>
                     </tr>
-                    <tr>
+                    <!--tr>
                         <td align="left">
                             <label for="diagnostico" class="control-label">Diagnóstico general: </label>
                         </td>
                         <td colspan="3" align="left">
-                            <textarea id="diagnostico" name="diagnostico" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.diagnostico }}"></textarea>
+                            <textarea id="diagnosticos" name="diagnostico" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.diagnostico }}"></textarea>
                         </td>
-                    </tr>
+                    </tr-->
                 </table>
 
             </div>
@@ -347,7 +347,7 @@
                 <label id="lblPrediccionProbabilidad" class="control-label"></label>
             </td>
         </tr>
-        <tr>
+        <tr class="noPrint">
             <td align="left">
                 <label for="prediccionCorrecta" class="control-label">Esta predicción es correcta</label>
             </td>
@@ -361,20 +361,20 @@
         </tr>
         <tr id="tratamiento">
             <td align="left">
-                <label for="tipoTratamiento" class="control-label">Tipo De Tratamiento</label>
+                <label for="tipoTratamiento" class="control-label">Etapa de la enfermedad</label>
             </td>
-            <td align="center">
-                <select name="tipoTratamiento" id="tipoTratamiento" onchange="ocualtarVista(this);">
-                    <option>Medicamentos</option>
-                    <option>Cirugìa</option>
-                    <option>Cirugìa Làser</option>
+            <td align="center" >
+                <select id="diagnostico" name="tipoTratamiento" onchange="ocualtarVista(this);">
+                    <option>Etapa Inicial - Tratamiento Medicamentos</option>
+                    <option>Etapa Instalada - Tratamiento Cirugìa</option>
+                    <option>Etapa Cronica - Tratamiento Cirugìa Làser</option>
                 </select>
             </td>
             <!--td class="agregarTratamiento" align="center" style="display: none">
                 <input style="line-height: 1;" class="btn btn-warning" type="button" onclick="agregarTratamientos()" value="Agregar" />
             </td-->
         </tr>
-        <tr id="medica">
+        <tr id="medica" class="noPrint">
             <td align="left">
                 <label for="medicamento" class="control-label">Agregar Receta</label>
             </td>
@@ -386,7 +386,7 @@
                             <option>{{medicamento.nombre}} , {{ medicamento.concentracion}} , {{ medicamento.docis}}</option>
                         {% endfor %}
                     {%else%}
-                    <option>No tiene medicamentos registrados</option>
+                    <optgroup label="No tiene medicamentos registrados">
                     {% endif %}
                 </select>
             </td>
@@ -394,12 +394,12 @@
             <input style="line-height: 1;" class="btn btn-warning" type="button" onclick="agregarReceta()" value="Agregar" />
           </td>
         </tr>
-        <tr id="recetas">
+        <tr id="recetas" class="noPrint">
           <td colspan="3" align="left">
             <textarea id="receta" name="receta" rows="5" cols="50" placeholder="{{ historia_clinica.ultima_consulta.receta }}"></textarea>
           </td>
         </tr>
-        <tr>
+        <tr class="noPrint">
           <td></td>
           <td align="center">
             <input class="ui-button" type="button" onclick="registrarConsulta()" value="Registrar Consulta" />
