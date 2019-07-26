@@ -16,7 +16,7 @@ function agregarReceta() {
 
 function ocualtarVista(sel)
 {
-  if(sel.value==='Medicamentos')
+  if(sel.value==='Etapa Inicial - Tratamiento Medicamentos')
   {
     $(".agregarTratamiento").hide();
     $("#medica").show();
@@ -30,4 +30,5 @@ function ocualtarVista(sel)
     $("#imprimirRecetas").hide();
     $("#recetas").hide();
   }
+  
 }
