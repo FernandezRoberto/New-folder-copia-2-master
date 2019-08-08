@@ -6,6 +6,7 @@ import os
 import logging
 import webapp2
 import json
+import datetime
 
 class CrearPaciente(BaseHandler):
     def get(self):
@@ -61,20 +62,99 @@ class ReconsultaPaciente(BaseHandler):
         )
         pacientesConCita = Paciente.get_fechaCita(user['fechaReconsulta'])
         pacientesConReconsulta = Paciente.get_fechaReconsulta(user['fechaReconsulta'])
-        if user['fechaReconsulta'][11:13] >= '08' and user['fechaReconsulta'][11:13] <= '18' :
-          if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0 ):
-            Paciente.editPacienteReconsulta(user['iden'], user['fechaReconsulta'])
-            self.response.headers['Content-Type'] = 'application/json'   
-            response = { 'message': 'La cita de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
-            self.response.out.write(json.dumps(response))
+        ahora = datetime.datetime.now()
+        month = ahora.month
+        year = "%s%s" % ('', ahora.year)
+        day = "%s%s" % ('', ahora.day)
+        if(ahora.month<9):
+            month = "%s%s" % ('0', ahora.month)
+        if(ahora.month<9):
+          day = "%s%s" % ('0', ahora.day)
+        print(day);
+        print(user['fechaReconsulta'][8:10])
+        print(user['fechaReconsulta'][00:04] >= year)
+        if user['fechaReconsulta'][00:04] >= year:
+          if user['fechaReconsulta'][00:04] == year :
+            if user['fechaReconsulta'][05:07] >= month:
+              if user['fechaReconsulta'][00:04] == year:
+                if user['fechaReconsulta'][8:10] >= day:
+                  if user['fechaReconsulta'][11:13] >= '08' and user['fechaReconsulta'][11:13] <= '18' :
+                    if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0 ):
+                      Paciente.editPacienteReconsulta(user['iden'], user['fechaReconsulta'])
+                      self.response.headers['Content-Type'] = 'application/json'   
+                      response = { 'message': 'La cita de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
+                      self.response.out.write(json.dumps(response))
+                    else:
+                      self.response.headers['Content-Type'] = 'application/json'   
+                      response = { 'message': 'La fecha de la reconsulta ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes'}
+                      self.response.out.write(json.dumps(response))
+                  else:
+                    self.response.headers['Content-Type'] = 'application/json'   
+                    response = { 'message': 'La fecha de la reconsulta es invalida, por favor seleccione otra fecha (8:00am-6:00pm)', 'redirect_url': '/paciente/mostrarPacientes'}
+                    self.response.out.write(json.dumps(response))
+                else:
+                  self.response.headers['Content-Type'] = 'application/json'   
+                  response = { 'message': 'El dia de la reconsulta es pasada , por favor seleccione otra fecha actual', 'redirect_url': '/paciente/mostrarPacientes'}
+                  self.response.out.write(json.dumps(response))
+              else:
+                if user['fechaReconsulta'][11:13] >= '08' and user['fechaReconsulta'][11:13] <= '18' :
+                  if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0 ):
+                    Paciente.editPacienteReconsulta(user['iden'], user['fechaReconsulta'])
+                    self.response.headers['Content-Type'] = 'application/json'   
+                    response = { 'message': 'La cita de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
+                    self.response.out.write(json.dumps(response))
+                  else:
+                    self.response.headers['Content-Type'] = 'application/json'   
+                    response = { 'message': 'La fecha de la reconsulta ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes'}
+                    self.response.out.write(json.dumps(response))
+                else:
+                  self.response.headers['Content-Type'] = 'application/json'   
+                  response = { 'message': 'La fecha de la reconsulta es invalida, por favor seleccione otra fecha (8:00am-6:00pm)', 'redirect_url': '/paciente/mostrarPacientes'}
+                  self.response.out.write(json.dumps(response))
+            else:
+              self.response.headers['Content-Type'] = 'application/json'   
+              response = { 'message': 'El mes de la reconsulta es pasada , por favor seleccione otra fecha actual', 'redirect_url': '/paciente/mostrarPacientes'}
+              self.response.out.write(json.dumps(response))
           else:
-            self.response.headers['Content-Type'] = 'application/json'   
-            response = { 'message': 'La fecha de la reconsulta ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes'}
-            self.response.out.write(json.dumps(response))
+            if user['fechaReconsulta'][00:04] == year :
+              if user['fechaReconsulta'][8:10] >= day:
+                if user['fechaReconsulta'][11:13] >= '08' and user['fechaReconsulta'][11:13] <= '18' :
+                  if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0 ):
+                    Paciente.editPacienteReconsulta(user['iden'], user['fechaReconsulta'])
+                    self.response.headers['Content-Type'] = 'application/json'   
+                    response = { 'message': 'La cita de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
+                    self.response.out.write(json.dumps(response))
+                  else:
+                    self.response.headers['Content-Type'] = 'application/json'   
+                    response = { 'message': 'La fecha de la reconsulta ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes'}
+                    self.response.out.write(json.dumps(response))
+                else:
+                  self.response.headers['Content-Type'] = 'application/json'   
+                  response = { 'message': 'La fecha de la reconsulta es invalida, por favor seleccione otra fecha (8:00am-6:00pm)', 'redirect_url': '/paciente/mostrarPacientes'}
+                  self.response.out.write(json.dumps(response))
+              else:
+                self.response.headers['Content-Type'] = 'application/json'   
+                response = { 'message': 'El dia de la reconsulta es pasada , por favor seleccione otra fecha actual', 'redirect_url': '/paciente/mostrarPacientes'}
+                self.response.out.write(json.dumps(response))
+            else:
+              if user['fechaReconsulta'][11:13] >= '08' and user['fechaReconsulta'][11:13] <= '18' :
+                if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0 ):
+                  Paciente.editPacienteReconsulta(user['iden'], user['fechaReconsulta'])
+                  self.response.headers['Content-Type'] = 'application/json'   
+                  response = { 'message': 'La reconsulta de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
+                  self.response.out.write(json.dumps(response))
+                else:
+                  self.response.headers['Content-Type'] = 'application/json'   
+                  response = { 'message': 'La fecha de la reconsulta ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes'}
+                  self.response.out.write(json.dumps(response))
+              else:
+                self.response.headers['Content-Type'] = 'application/json'   
+                response = { 'message': 'La fecha de la reconsulta es invalida, por favor seleccione otra fecha (8:00am-6:00pm)', 'redirect_url': '/paciente/mostrarPacientes'}
+                self.response.out.write(json.dumps(response))
         else:
-            self.response.headers['Content-Type'] = 'application/json'   
-            response = { 'message': 'La fecha de la reconsulta es invalida seleccione, por favor seleccione otra fecha (8:00am-6:00pm)', 'redirect_url': '/paciente/mostrarPacientes'}
-            self.response.out.write(json.dumps(response))
+          self.response.headers['Content-Type'] = 'application/json'   
+          response = { 'message': 'El anio de la reconsulta es pasada , por favor seleccione otra fecha actual', 'redirect_url': '/paciente/mostrarPacientes'}
+          self.response.out.write(json.dumps(response))
 
     def get(self, note_id):
         self.init()
@@ -98,21 +178,99 @@ class CitaPaciente(BaseHandler):
         )
         pacientesConCita = Paciente.get_fechaCita(user['fechaCita'])
         pacientesConReconsulta = Paciente.get_fechaReconsulta(user['fechaCita'])
-        print(user['fechaCita'][11:13]);
-        if user['fechaCita'][11:13] >= '08' and user['fechaCita'][11:13] <= '18' :
-          if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0):
-            Paciente.editPacienteCita(user['iden'], user['fechaCita'])
-            self.response.headers['Content-Type'] = 'application/json'   
-            response = { 'message': 'La cita de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
-            self.response.out.write(json.dumps(response))
+        ahora = datetime.datetime.now()
+        month = ahora.month
+        year = "%s%s" % ('', ahora.year)
+        day = "%s%s" % ('', ahora.day)
+        if(ahora.month<9):
+            month = "%s%s" % ('0', ahora.month)
+        if(ahora.month<9):
+          day = "%s%s" % ('0', ahora.day)
+        print(day);
+        print(user['fechaCita'][8:10])
+        print(user['fechaCita'][00:04] >= year)
+        if user['fechaCita'][00:04] >= year:
+          if user['fechaCita'][00:04] == year :
+            if user['fechaCita'][05:07] >= month:
+              if user['fechaCita'][00:04] == year:
+                if user['fechaCita'][8:10] >= day:
+                  if user['fechaCita'][11:13] >= '08' and user['fechaCita'][11:13] <= '18' :
+                    if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0 ):
+                      Paciente.editPacienteCita(user['iden'], user['fechaCita'])
+                      self.response.headers['Content-Type'] = 'application/json'   
+                      response = { 'message': 'La cita de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
+                      self.response.out.write(json.dumps(response))
+                    else:
+                      self.response.headers['Content-Type'] = 'application/json'   
+                      response = { 'message': 'La fecha de la reconsulta ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes'}
+                      self.response.out.write(json.dumps(response))
+                  else:
+                    self.response.headers['Content-Type'] = 'application/json'   
+                    response = { 'message': 'La fecha de la reconsulta es invalida, por favor seleccione otra fecha (8:00am-6:00pm)', 'redirect_url': '/paciente/mostrarPacientes'}
+                    self.response.out.write(json.dumps(response))
+                else:
+                  self.response.headers['Content-Type'] = 'application/json'   
+                  response = { 'message': 'El dia de la reconsulta es pasada , por favor seleccione otra fecha actual', 'redirect_url': '/paciente/mostrarPacientes'}
+                  self.response.out.write(json.dumps(response))
+              else:
+                if user['fechaCita'][11:13] >= '08' and user['fechaCita'][11:13] <= '18' :
+                  if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0 ):
+                    Paciente.editPacienteCita(user['iden'], user['fechaCita'])
+                    self.response.headers['Content-Type'] = 'application/json'   
+                    response = { 'message': 'La cita de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
+                    self.response.out.write(json.dumps(response))
+                  else:
+                    self.response.headers['Content-Type'] = 'application/json'   
+                    response = { 'message': 'La fecha de la reconsulta ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes'}
+                    self.response.out.write(json.dumps(response))
+                else:
+                  self.response.headers['Content-Type'] = 'application/json'   
+                  response = { 'message': 'La fecha de la reconsulta es invalida, por favor seleccione otra fecha (8:00am-6:00pm)', 'redirect_url': '/paciente/mostrarPacientes'}
+                  self.response.out.write(json.dumps(response))
+            else:
+              self.response.headers['Content-Type'] = 'application/json'   
+              response = { 'message': 'El mes de la reconsulta es pasada , por favor seleccione otra fecha actual', 'redirect_url': '/paciente/mostrarPacientes'}
+              self.response.out.write(json.dumps(response))
           else:
-            self.response.headers['Content-Type'] = 'application/json'   
-            response = { 'message': 'La fecha de la cita ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes' }
-            self.response.out.write(json.dumps(response))
+            if user['fechaCita'][00:04] == year :
+              if user['fechaCita'][8:10] >= day:
+                if user['fechaCita'][11:13] >= '08' and user['fechaCita'][11:13] <= '18' :
+                  if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0 ):
+                    Paciente.editPacienteCita(user['iden'], user['fechaCita'])
+                    self.response.headers['Content-Type'] = 'application/json'   
+                    response = { 'message': 'La cita de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
+                    self.response.out.write(json.dumps(response))
+                  else:
+                    self.response.headers['Content-Type'] = 'application/json'   
+                    response = { 'message': 'La fecha de la reconsulta ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes'}
+                    self.response.out.write(json.dumps(response))
+                else:
+                  self.response.headers['Content-Type'] = 'application/json'   
+                  response = { 'message': 'La fecha de la reconsulta es invalida, por favor seleccione otra fecha (8:00am-6:00pm)', 'redirect_url': '/paciente/mostrarPacientes'}
+                  self.response.out.write(json.dumps(response))
+              else:
+                self.response.headers['Content-Type'] = 'application/json'   
+                response = { 'message': 'El dia de la reconsulta es pasada , por favor seleccione otra fecha actual', 'redirect_url': '/paciente/mostrarPacientes'}
+                self.response.out.write(json.dumps(response))
+            else:
+              if user['fechaCita'][11:13] >= '08' and user['fechaCita'][11:13] <= '18' :
+                if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0 ):
+                  Paciente.editPacienteCita(user['iden'], user['fechaCita'])
+                  self.response.headers['Content-Type'] = 'application/json'   
+                  response = { 'message': 'La reconsulta de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
+                  self.response.out.write(json.dumps(response))
+                else:
+                  self.response.headers['Content-Type'] = 'application/json'   
+                  response = { 'message': 'La fecha de la reconsulta ya esta tomada, seleccione otra fecha', 'redirect_url': '/paciente/mostrarPacientes'}
+                  self.response.out.write(json.dumps(response))
+              else:
+                self.response.headers['Content-Type'] = 'application/json'   
+                response = { 'message': 'La fecha de la reconsulta es invalida, por favor seleccione otra fecha (8:00am-6:00pm)', 'redirect_url': '/paciente/mostrarPacientes'}
+                self.response.out.write(json.dumps(response))
         else:
-            self.response.headers['Content-Type'] = 'application/json'   
-            response = { 'message': 'La fecha de la cita es invalida, por favor seleccione otra fecha (8:00am-6:00pm)', 'redirect_url': '/paciente/mostrarPacientes' }
-            self.response.out.write(json.dumps(response))
+          self.response.headers['Content-Type'] = 'application/json'   
+          response = { 'message': 'El anio de la reconsulta es pasada , por favor seleccione otra fecha actual', 'redirect_url': '/paciente/mostrarPacientes'}
+          self.response.out.write(json.dumps(response))
 
     def get(self, note_id):
         self.init()
