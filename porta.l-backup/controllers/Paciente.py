@@ -68,7 +68,7 @@ class ReconsultaPaciente(BaseHandler):
         day = "%s%s" % ('', ahora.day)
         if(ahora.month<9):
             month = "%s%s" % ('0', ahora.month)
-        if(ahora.month<9):
+        if(ahora.day<9):
           day = "%s%s" % ('0', ahora.day)
         print(day);
         print(user['fechaReconsulta'][8:10])
@@ -184,11 +184,11 @@ class CitaPaciente(BaseHandler):
         day = "%s%s" % ('', ahora.day)
         if(ahora.month<9):
             month = "%s%s" % ('0', ahora.month)
-        if(ahora.month<9):
+        if(ahora.day<9):
           day = "%s%s" % ('0', ahora.day)
         print(day);
         print(user['fechaCita'][8:10])
-        print(user['fechaCita'][00:04] >= year)
+        print(user['fechaCita'][8:10] >= day)
         if user['fechaCita'][00:04] >= year:
           if user['fechaCita'][00:04] == year :
             if user['fechaCita'][05:07] >= month:
@@ -256,7 +256,7 @@ class CitaPaciente(BaseHandler):
               if user['fechaCita'][11:13] >= '08' and user['fechaCita'][11:13] <= '18' :
                 if (len(pacientesConReconsulta) == 0 and len(pacientesConCita) == 0 ):
                   Paciente.editPacienteCita(user['iden'], user['fechaCita'])
-                  self.response.headers['Content-Type'] = 'application/json'   
+                  self.response.headers['Content-Type'] = 'application/json'
                   response = { 'message': 'La reconsulta de ' + user['nombre']+' ' + user['paterno'] + ' fue registrada con exito', 'redirect_url': '/paciente/mostrarPacientes' }
                   self.response.out.write(json.dumps(response))
                 else:
